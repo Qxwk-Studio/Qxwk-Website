@@ -2,7 +2,7 @@
 
 > 青翔未阔工作室的官方网站 —— 集资源下载、画廊、项目展示、团队介绍于一体，全静态页面，开箱即用，完美运行于 GitHub Pages。
 >
-> 可下载文件存储于 [TidalStarNan/QxwkFiles](https://github.com/TidalStarNan/QxwkFiles)，通过 GitHub API 动态读取。
+> 可下载文件存储于 [TidalStarNan/Qxwk-Files](https://github.com/TidalStarNan/Qxwk-Files)，通过 GitHub API 动态读取。
 
 ## ✨ 功能一览
 
@@ -14,12 +14,12 @@
 - **网站链接**：外部项目与合作站点直接展示
 
 ### 📦 下载中心 (`tools/download.html`)
-- 通过 **GitHub API** 动态列出 [QxwkFiles](https://github.com/TidalStarNan/QxwkFiles) 仓库文件
+- 通过 **GitHub API** 动态列出 [Qxwk-Files](https://github.com/TidalStarNan/Qxwk-Files) 仓库文件
 - 多标签页支持，自动解析文件名日期并按倒序排列
 - 展示文件类型、大小、修改日期，一键下载
 
 ### 🖼️ 画廊 (`tools/gallery.html`)
-- 从 `QxwkFiles/image-gallery` 目录动态读取图片
+- 从 `Qxwk-Files/image-gallery` 目录动态读取图片
 - 分类标签页，响应式图片网格
 - 灯箱放大查看，键盘快捷键切换
 - 禁止右键下载保护
