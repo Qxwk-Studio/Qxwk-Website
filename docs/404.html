@@ -30,8 +30,63 @@
         color: white !important;
     }
 </style>
+<meta name="color-scheme" content="light dark">
+<script>
+/* 主题切换：localStorage('theme') 优先，其次跟随系统 prefers-color-scheme；同步写入 <html> 的 data-theme 防闪烁 */
+(function () {
+    var KEY = 'theme';
+    var root = document.documentElement;
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function system() { return mq.matches ? 'dark' : 'light'; }
+    function stored() { try { var v = localStorage.getItem(KEY); return (v === 'dark' || v === 'light') ? v : null; } catch (e) { return null; } }
+    function apply(t) { root.setAttribute('data-theme', t); }
+    function current() { return stored() || system(); }
+    apply(current());
+    function toggle() { var next = current() === 'dark' ? 'light' : 'dark'; apply(next); try { localStorage.setItem(KEY, next); } catch (e) {} }
+    function bind() {
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.addEventListener('click', toggle);
+        if (mq.addEventListener) mq.addEventListener('change', function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+        else if (mq.addListener) mq.addListener(function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+        window.addEventListener('storage', function (e) { if (e.key === KEY) apply(current()); });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
+})();
+</script>
+<style>
+    /* ===== 黑夜模式：主题切换按钮 ===== */
+    .theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; background:none; border:none; border-radius:50%; color:#404040; cursor:pointer; transition:background 0.2s, color 0.2s; }
+    .theme-toggle:hover { background:rgba(37,99,235,0.15); color:#2f7bbf; }
+    .theme-toggle svg { width:22px; height:22px; }
+    .theme-toggle .icon-sun { display:none; }
+    :root[data-theme="dark"] .theme-toggle { color:#e2e8f0; }
+    :root[data-theme="dark"] .theme-toggle:hover { color:#60a5fa; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
+
+    /* ===== 黑夜模式：深色覆盖 ===== */
+    :root { --ok-404:#9bca3e; --link-404:#2f7bbf; }
+    :root[data-theme="dark"] { color-scheme: dark; --ok-404:#86efac; --link-404:#60a5fa; }
+    :root[data-theme="dark"] body, :root[data-theme="dark"] html { color:#e2e8f0; }
+    :root[data-theme="dark"] .bg-white { background-color:#0f172a; }
+    :root[data-theme="dark"] .bg-gradient-gray { background-image:linear-gradient(to top,#1e293b,#334155 3%,#334155 97%,#1e293b); }
+    :root[data-theme="dark"] .text-black-dark { color:#e2e8f0; }
+    :root[data-theme="dark"] .text-gray-600 { color:#94a3b8; }
+    :root[data-theme="dark"] .code-label { background-color:#334155; color:#e2e8f0; }
+    :root[data-theme="dark"] .cf-error-source:after { background-color:#334155; box-shadow:0 0 4px 4px #1e293b; }
+    :root[data-theme="dark"] a { color:#60a5fa; }
+    :root[data-theme="dark"] a:hover { color:#fb923c; }
+    :root[data-theme="dark"] .border-gray-300, :root[data-theme="dark"] .md\:border-gray-400 { border-color:#334155; }
+    :root[data-theme="dark"] .text-red-error { color:#f87171; }
+    :root[data-theme="dark"] .text-green-success { color:#86efac; }
+    :root[data-theme="dark"] .cf-icon-browser, :root[data-theme="dark"] .cf-icon-cloud, :root[data-theme="dark"] .cf-icon-server { filter:brightness(0) invert(1); }
+</style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" title="切换主题" style="position:fixed;top:16px;right:16px;z-index:9999;">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
 <div id="cf-wrapper">
     <div id="cf-error-details" class="p-0">
         <header class="mx-auto pt-10 lg:pt-6 lg:px-8 w-240 lg:w-full mb-8">
@@ -57,7 +112,7 @@
                         </div>
                         <span class="md:block w-full truncate">本地</span>
                         <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3" >浏览器</h3>
-                        <span class="leading-1.3 text-2xl" style="color: #9bca3e">似乎工作正常</span>
+                        <span class="leading-1.3 text-2xl" style="color: var(--ok-404)">似乎工作正常</span>
                     </div>
                     <div id="cf-cloudflare-status" class=" relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
                         <div class="relative mb-10 md:m-0">
@@ -65,8 +120,8 @@
                             <span class="cf-icon-ok w-12 h-12 absolute left-1/2 md:left-auto md:right-0 md:top-0 -ml-6 -bottom-4"></span>
                         </div>
                         <span class="md:block w-full truncate">旧金山</span>
-                        <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3" style="color: #2f7bbf;">Cloudflare</h3>
-                        <span class="leading-1.3 text-2xl" style="color: #9bca3e">经常工作正常</span>
+                        <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3" style="color: var(--link-404);">Cloudflare</h3>
+                        <span class="leading-1.3 text-2xl" style="color: var(--ok-404)">经常工作正常</span>
                     </div>
                     <div id="cf-host-status" class="cf-error-source relative w-1/3 md:w-full py-15 md:p-0 md:py-8 md:text-left md:border-solid md:border-0 md:border-b md:border-gray-400 overflow-hidden float-left md:float-none text-center">
                         <div class="relative mb-10 md:m-0">
@@ -75,7 +130,7 @@
                         </div>
                         <span class="md:block w-full truncate">QxwkFiles/index.html</span>
                         <h3 class="md:inline-block mt-3 md:mt-0 text-2xl text-gray-600 font-light leading-1.3" >服务器</h3>
-                        <span class="leading-1.3 text-2xl" style="color: #9bca3e">几乎工作正常</span>
+                        <span class="leading-1.3 text-2xl" style="color: var(--ok-404)">几乎工作正常</span>
                     </div>
                 </div>
             </div>
