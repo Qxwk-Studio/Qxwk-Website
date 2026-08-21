@@ -660,6 +660,8 @@
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
 
         /* ========= Responsive ========= */
         @media (max-width: 768px) {
@@ -1017,7 +1019,17 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </a>
-                <a href="https://qiye.aliyun.com" target="_blank" rel="noopener noreferrer" class="card reveal reveal-delay-3">
+                <a href="javascript:void(0)" onclick="showDevToast()" class="card reveal reveal-delay-3">
+                    <div class="card-icon rose">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>班级教务系统</h3>
+                    <p>管理班级事务，查看教务信息</p>
+                    <span class="card-arrow">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </a>
+                <a href="https://qiye.aliyun.com" target="_blank" rel="noopener noreferrer" class="card reveal reveal-delay-4">
                     <div class="card-icon cyan">
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     </div>
@@ -1027,7 +1039,7 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </a>
-                <a href="about" class="card reveal reveal-delay-4">
+                <a href="about" class="card reveal reveal-delay-5">
                     <div class="card-icon cyan">
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                     </div>
@@ -1037,7 +1049,7 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </a>
-                <a href="404" class="card reveal reveal-delay-5">
+                <a href="404" class="card reveal reveal-delay-6">
                     <div class="card-icon orange">
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                     </div>
@@ -1095,17 +1107,21 @@
                 </h3>
                 <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;">一些有趣的小伙伴和他们的网站</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">
+                    <a href="https://github.com/AprismLab" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span style="font-weight:600;">Aprism Lab · GitHub</span>
+                        <span style="font-size:0.84rem;color:var(--text-secondary);">BlockConnect 团队的子组织，致力于 Minecraft 与 Java 基础设施的激进建设</span>
+                    </a>
                     <a href="https://github.com/NDBlockConnect" target="_blank" rel="noopener noreferrer" class="link-card">
                         <span style="font-weight:600;">Block Connect · GitHub</span>
-                        <span style="font-size:0.84rem;color:var(--text-secondary);">世界联结 BlockConnect：Connect the Worlds</span>
+                        <span style="font-size:0.84rem;color:var(--text-secondary);">BlockConnect 是面向 Minecraft 的第三方工具开发组织</span>
                     </a>
-                    <a href="https://github.com/OHPBP" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <a href="https://hpbi.n0th1n3ssd0ma1n.top/" target="_blank" rel="noopener noreferrer" class="link-card">
                         <span style="font-weight:600;">OHPBP · GitHub</span>
-                        <span style="font-size:0.84rem;color:var(--text-secondary);">源氧人类生产力助推计划</span>
+                        <span style="font-size:0.84rem;color:var(--text-secondary);">助推计划将开发多种技能与 MCP，让 Agent 接入各类生产力软件与现实应用</span>
                     </a>
-                    <a href="https://github.com/OxygenAILab" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <a href="https://oxygen.n0th1n3ssd0ma1n.top/" target="_blank" rel="noopener noreferrer" class="link-card">
                         <span style="font-weight:600;">Oxygen AI Lab · GitHub</span>
-                        <span style="font-size:0.84rem;color:var(--text-secondary);">源氧 Oxygen AI Lab：人工智能实验室</span>
+                        <span style="font-size:0.84rem;color:var(--text-secondary);">专注于 Agent 增强与生产力加速的 AI 实验室</span>
                     </a>
                     <a href="https://github.com/StarsailsClover" target="_blank" rel="noopener noreferrer" class="link-card">
                         <span style="font-weight:600;">StarsailsClover · GitHub</span>

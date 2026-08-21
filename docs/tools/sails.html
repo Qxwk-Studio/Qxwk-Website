@@ -193,13 +193,7 @@
         .repo-meta .stars { display:inline-flex; align-items:center; gap:2px; }
 
         /* Orgs */
-        .org-list { display:flex; flex-wrap:wrap; gap:10px; }
-        .org-item { display:flex; align-items:center; gap:8px; padding:8px 14px;
-            background:var(--bg); border:1px solid var(--border); border-radius:40px;
-            text-decoration:none; color:var(--text-primary); font-size:0.84rem; font-weight:500;
-            transition:all var(--transition); }
-        .org-item:hover { border-color:var(--primary); color:var(--primary); }
-        .org-item img { width:22px; height:22px; border-radius:50%; }
+        .org-avatar { width:20px; height:20px; border-radius:50%; }
 
         /* States */
         .loading-state { text-align:center; padding:80px 20px; color:var(--text-secondary); }
@@ -461,7 +455,24 @@
             const orgs = orgsRes.ok ? await orgsRes.json() : [];
             const repos = reposRes.ok ? await reposRes.json() : [];
 
-            return { user, orgs, repos };
+            // 拉取每个组织的详情（简介、主页），orgs 列表接口不含 description/html_url
+            const orgDetails = await Promise.all(orgs.map(async (o) => {
+                try {
+                    const res = await fetch(`https://api.github.com/orgs/${o.login}`, { headers });
+                    if (!res.ok) return { login: o.login, avatar_url: o.avatar_url, description: '', html_url: `https://github.com/${o.login}` };
+                    const d = await res.json();
+                    return {
+                        login: d.login || o.login,
+                        avatar_url: d.avatar_url || o.avatar_url,
+                        description: d.description || '',
+                        html_url: d.html_url || `https://github.com/${o.login}`,
+                    };
+                } catch {
+                    return { login: o.login, avatar_url: o.avatar_url, description: '', html_url: `https://github.com/${o.login}` };
+                }
+            }));
+
+            return { user, orgs: orgDetails, repos };
         }
 
         async function fetchEvents() {
@@ -520,8 +531,7 @@
             }
 
             if (data.orgs.length) {
-                const orgCards = data.orgs.map(o => ({ login: o.login, avatar_url: o.avatar_url, html_url: o.html_url }));
-                app.appendChild(createOrgsSection(orgCards));
+                app.appendChild(createOrgsSection(data.orgs));
             }
 
             if (data.repos.length) {
@@ -841,18 +851,30 @@
             const section = document.createElement('div');
             section.className = 'section-card';
             section.innerHTML = '<h3>🏢 所属组织</h3>';
-            const list = document.createElement('div');
-            list.className = 'org-list';
+            const grid = document.createElement('div');
+            grid.className = 'repo-grid';
             for (const org of orgs) {
                 const a = document.createElement('a');
                 a.href = org.html_url;
                 a.target = '_blank';
                 a.rel = 'noopener noreferrer';
-                a.className = 'org-item';
-                a.innerHTML = `<img src="${escAttr(org.avatar_url)}" alt="${esc(org.login)}" loading="lazy">${esc(org.login)}`;
-                list.appendChild(a);
+                a.className = 'repo-card';
+
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'repo-name';
+                nameDiv.innerHTML = `<img class="org-avatar" src="${escAttr(org.avatar_url)}" alt="" loading="lazy">${esc(org.login)}`;
+                a.appendChild(nameDiv);
+
+                if (org.description) {
+                    const desc = document.createElement('div');
+                    desc.className = 'repo-desc';
+                    desc.textContent = org.description;
+                    a.appendChild(desc);
+                }
+
+                grid.appendChild(a);
             }
-            section.appendChild(list);
+            section.appendChild(grid);
             return section;
         }
 
