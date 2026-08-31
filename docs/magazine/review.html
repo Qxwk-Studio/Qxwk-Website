@@ -231,7 +231,7 @@
         var app = document.getElementById('app');
         function renderLogin(msg) {
             app.innerHTML = '<div class="login-cta"><h2>' + (msg || '请先登录') + '</h2>' +
-                '<p>投稿审稿仅对管理员开放，需使用通行证账号登录。</p>' +
+                '<p>投稿审核仅对管理员开放，需使用通行证账号登录。</p>' +
                 '<a class="btn btn-primary" href="' + ssoLoginUrl() + '">前往登录</a></div>';
         }
         function renderDenied() {
@@ -239,7 +239,7 @@
         }
         function renderPanel() {
             app.innerHTML =
-                '<div class="page-header"><h1><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>投稿审稿</h1>' +
+                '<div class="page-header"><h1><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>投稿审核</h1>' +
                 '<div class="tagline">审核通过后请手动发布到 Qxwk-Files 并更新 issues.json</div></div>' +
                 '<div class="tabs" id="tabs">' +
                 '<button class="tab active" data-s="pending">待审核</button>' +
