@@ -53,6 +53,11 @@
             border-radius:40px; font-size:0.88rem; font-weight:500; cursor:pointer; font-family:var(--font-sans);
             flex-shrink:0; transition:all var(--transition); }
         .submit-btn:hover { transform:scale(1.03); box-shadow:0 6px 20px rgba(37,99,235,0.3); }
+        .account-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 18px;
+            background:var(--surface); color:var(--primary); text-decoration:none;
+            border:1px solid var(--border); border-radius:40px; font-size:0.88rem; font-weight:500;
+            flex-shrink:0; transition:all var(--transition); }
+        .account-btn:hover { border-color:var(--primary); background:var(--primary-light); transform:scale(1.03); }
 
         /* ===== Series overview ===== */
         .series-bar { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
@@ -317,11 +322,16 @@
                         </h1>
                         <div class="tagline" id="magTagline">记录青翔未阔工作室的思考与动态</div>
                     </div>
-                    <button class="submit-btn" type="button" onclick="location.href='submit.html'">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                        投稿
-                    </button>
-                    <a href="review.html" class="submit-btn" id="adminReviewBtn" style="display:none;">审稿</a>
+                    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+                        <button class="submit-btn" type="button" onclick="location.href='submit.html'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            投稿
+                        </button>
+                        <a href="account.html" class="account-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            个人中心
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -908,15 +918,6 @@
         })();
 
         function magToken() { return localStorage.getItem(MAG_TOKEN_KEY) || ''; }
-
-        // 管理员审稿入口：仅当局端已保存登录态时才轻量校验并显示
-        (function () {
-            if (!magToken()) return;
-            fetch(SUBMIT_API + '/api/me', { headers: { 'Authorization': 'Bearer ' + magToken() } })
-                .then(function (r) { return r.status === 200 ? r.json() : null; })
-                .then(function (me) { if (me && me.is_admin) document.getElementById('adminReviewBtn').style.display = ''; })
-                .catch(function () {});
-        })();
 
         // 先解密 token（用于后续文章请求），再加载索引
         decryptToken().then(function () { loadIssues(); loadSeries(); });
