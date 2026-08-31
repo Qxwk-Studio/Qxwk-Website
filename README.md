@@ -33,7 +33,7 @@
 - 每月一刊，汇聚工作室动态、项目进展与成员随笔
 - 索引读取 `docs/magazine/issues.json`（期刊元数据、文章目录、作者），系列更新状态读取 `series.json`
 - 文章正文存储于 [Qxwk-Files/files-magazine](https://github.com/Qxwk-Studio/Qxwk-Files/tree/main/files-magazine)，按 `年-月` 目录组织，封面与正文均从仓库动态读取
-- 系列更新状态卡片：默认折叠、可展开，桌面端每排 3 个、移动端每排 1 个，已完结系列以红色徽标标注
+- 系列更新状态卡片：默认折叠、可展开，已完结系列以红色徽标标注
 
 ### 👥 关于我们 (`about.html`)
 - 工作室介绍 + 一键邮件联系

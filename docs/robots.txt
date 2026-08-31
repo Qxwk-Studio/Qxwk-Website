@@ -3,5 +3,9 @@ Disallow: /404.html
 Disallow: /dictionary/*.json
 Disallow: /tools/26keys-quiz.json
 Disallow: /tools/sails.json
+Disallow: /magazine/issues.json
+Disallow: /magazine/series.json
+Disallow: /magazine/review.html
+Disallow: /magazine/submit.html
 
 Sitemap: https://home.qxwkstudio.top/sitemap.xml
