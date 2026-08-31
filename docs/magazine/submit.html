@@ -72,7 +72,7 @@
             font-size:0.92rem; color:var(--text-primary); background:var(--bg); font-family:var(--font-sans);
             transition:border-color var(--transition), box-shadow var(--transition); }
         .field-input:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(37,99,235,0.12); background:var(--surface); }
-        textarea.field-input { min-height:200px; resize:vertical; line-height:1.7; }
+        textarea.field-input { min-height:200px; resize:none; overflow-y:hidden; line-height:1.7; }
         .form-tip { font-size:0.78rem; color:var(--text-tertiary); margin-top:14px; line-height:1.6; }
         .actions { display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
         .btn { display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:40px;
@@ -89,11 +89,15 @@
         .login-cta h2 { font-size:1.35rem; color:var(--text-primary); margin-bottom:10px; }
         .login-cta p { color:var(--text-secondary); margin-bottom:24px; }
 
-        .toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(20px);
+        .toast { position:fixed; top:-60px; left:50%; transform:translateX(-50%);
             background:var(--surface); color:var(--text-primary); border:1px solid var(--border);
-            padding:12px 20px; border-radius:40px; font-size:0.86rem; box-shadow:var(--shadow-md);
-            z-index:3000; opacity:0; pointer-events:none; transition:all 0.3s ease; }
-        .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+            padding:12px 24px; border-radius:var(--radius-sm); font-size:0.9rem; font-weight:500;
+            z-index:3000; opacity:0; pointer-events:none;
+            box-shadow:0 4px 20px rgba(0,0,0,0.1);
+            display:flex; align-items:center; gap:10px;
+            transition:top 0.35s ease, opacity 0.35s ease; }
+        .toast svg { color:var(--primary); flex-shrink:0; }
+        .toast.show { top:80px; opacity:1; }
 
         .footer { background:#0f172a; text-align:center; padding:28px 24px;
             color:var(--text-tertiary); font-size:0.82rem; border-top:1px solid rgba(255,255,255,0.06); }
@@ -136,7 +140,7 @@
         <div class="footer-copy">2026 青翔未阔工作室</div>
     </footer>
 
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span id="toastText"></span></div>
 
     <script>
         // ===== 通行证 SSO + 提交到 cityfoot 后端 =====
@@ -155,7 +159,7 @@
 
         function showToast(msg) {
             var el = document.getElementById('toast');
-            el.textContent = msg; el.classList.add('show');
+            document.getElementById('toastText').textContent = msg; el.classList.add('show');
             if (window._toastTimer) clearTimeout(window._toastTimer);
             window._toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2500);
         }
@@ -173,12 +177,12 @@
                 '<div class="form-card">' +
                 '<label for="subTitle">标题</label>' +
                 '<input class="field-input" id="subTitle" maxlength="60" placeholder="请输入文章标题" autocomplete="off">' +
-                '<label for="subCategory">分类（可选）</label>' +
-                '<input class="field-input" id="subCategory" maxlength="30" placeholder="例如：随笔 / 项目 / 教程" autocomplete="off">' +
+                '<label for="subCategory">系列（可选）</label>' +
+                '<input class="field-input" id="subCategory" maxlength="30" placeholder="例如：XX研究所 / XX漫谈" autocomplete="off">' +
                 '<label for="subBody">正文</label>' +
                 '<textarea class="field-input" id="subBody" placeholder="支持换行，最多 20000 字"></textarea>' +
                 '<label for="subContact">联系方式（可选）</label>' +
-                '<input class="field-input" id="subContact" maxlength="100" placeholder="用于联系，如 QQ / 邮箱" autocomplete="off">' +
+                '<input class="field-input" id="subContact" maxlength="100" placeholder="如果有不同的署名也请写在这里，否则我们将使用你的通行证昵称" autocomplete="off">' +
                 '<p class="form-tip">投稿提交后由管理员审核，通过后将在新一期发布，请勿一稿多投。</p>' +
                 '<div class="actions">' +
                 '<button type="button" class="btn btn-ghost" id="subReset">清空</button>' +
@@ -187,7 +191,19 @@
             document.getElementById('subSubmit').addEventListener('click', doSubmit);
             document.getElementById('subReset').addEventListener('click', function () {
                 document.querySelectorAll('.field-input').forEach(function (i) { i.value = ''; });
+                var ta = document.getElementById('subBody');
+                if (ta) adjustTextarea(ta);
             });
+            var ta = document.getElementById('subBody');
+            if (ta) {
+                ta.addEventListener('input', function () { adjustTextarea(ta); });
+                adjustTextarea(ta);
+            }
+        }
+
+        function adjustTextarea(ta) {
+            ta.style.height = 'auto';
+            ta.style.height = ta.scrollHeight + 'px';
         }
 
         function init() {

@@ -203,12 +203,16 @@
             color:var(--text-tertiary); font-size:0.82rem; border-top:1px solid rgba(255,255,255,0.06); }
         .footer-copy { opacity:0.6; }
 
-        /* ===== Toast ===== */
-        .toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(20px);
+        /* ===== Toast（与主站"开发中"一致） ===== */
+        .toast { position:fixed; top:-60px; left:50%; transform:translateX(-50%);
             background:var(--surface); color:var(--text-primary); border:1px solid var(--border);
-            padding:12px 20px; border-radius:40px; font-size:0.86rem; box-shadow:var(--shadow-md);
-            z-index:3000; opacity:0; pointer-events:none; transition:all 0.3s ease; }
-        .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+            padding:12px 24px; border-radius:var(--radius-sm); font-size:0.9rem; font-weight:500;
+            z-index:3000; opacity:0; pointer-events:none;
+            box-shadow:0 4px 20px rgba(0,0,0,0.1);
+            display:flex; align-items:center; gap:10px;
+            transition:top 0.35s ease, opacity 0.35s ease; }
+        .toast svg { color:var(--primary); flex-shrink:0; }
+        .toast.show { top:80px; opacity:1; }
 
         @media (max-width:900px) {
             .issues-grid { grid-template-columns:repeat(2,1fr); }
@@ -379,7 +383,7 @@
         </div>
     </div>
 
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span id="toastText"></span></div>
 
     <script>
         var ISSUES_URL = 'issues.json';
@@ -884,7 +888,7 @@
         // ===== Toast =====
         function showToast(msg) {
             var t = document.getElementById('toast');
-            t.textContent = msg;
+            document.getElementById('toastText').textContent = msg;
             t.classList.add('show');
             clearTimeout(t._timer);
             t._timer = setTimeout(function () { t.classList.remove('show'); }, 2200);
