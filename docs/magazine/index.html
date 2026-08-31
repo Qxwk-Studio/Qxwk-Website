@@ -48,11 +48,38 @@
         .page-header h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--text-primary);
             display:flex; align-items:center; gap:10px; }
         .page-header .tagline { font-size:0.95rem; color:var(--text-secondary); margin-top:8px; }
-        .submit-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
-            background:var(--surface); color:var(--primary); border:1px solid var(--primary);
-            border-radius:40px; font-size:0.86rem; font-weight:500; cursor:pointer; font-family:var(--font-sans);
+        .submit-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 20px;
+            background:linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff; border:none;
+            border-radius:40px; font-size:0.88rem; font-weight:500; cursor:pointer; font-family:var(--font-sans);
             flex-shrink:0; transition:all var(--transition); }
-        .submit-btn:hover { background:var(--primary); color:#fff; }
+        .submit-btn:hover { transform:scale(1.03); box-shadow:0 6px 20px rgba(37,99,235,0.3); }
+
+        /* ===== Series overview ===== */
+        .series-bar { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+            padding:18px 20px; margin-bottom:28px; box-shadow:var(--shadow-sm); }
+        .series-head { display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; }
+        .series-title { font-size:0.92rem; font-weight:600; color:var(--text-primary); display:flex; align-items:center; gap:8px; }
+        .series-title .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+            background:linear-gradient(135deg,var(--primary),var(--secondary)); }
+        .series-toggle { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+            border-radius:50%; background:var(--bg); border:1px solid var(--border); color:var(--text-secondary);
+            transition:transform var(--transition), background var(--transition); }
+        .series-bar.collapsed .series-toggle { transform:rotate(-90deg); }
+        .series-body { overflow:hidden; max-height:1000px; transition:max-height 0.35s ease, margin-top 0.35s ease; }
+        .series-bar.collapsed .series-body { max-height:0; margin-top:0; }
+        .series-scroll { display:flex; flex-wrap:wrap; gap:10px; padding:14px 2px 4px; }
+        .series-chip { display:flex; align-items:center; gap:10px; padding:10px 14px;
+            background:var(--bg); border:1px solid var(--border); border-radius:12px; cursor:default;
+            transition:transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+            flex:1 0 calc(33.333% - 7px); min-width:0; }
+        .series-chip:hover { transform:translateY(-1px); border-color:var(--primary); box-shadow:var(--shadow-sm); }
+        .series-chip .sc-icon { font-size:1.3rem; line-height:1; flex-shrink:0; }
+        .series-chip .sc-info { min-width:0; flex:1; }
+        .series-chip .sc-name { font-size:0.84rem; font-weight:600; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .series-chip .sc-meta { font-size:0.74rem; color:var(--text-tertiary); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .series-chip .sc-count { font-size:0.72rem; font-weight:600; padding:3px 8px; border-radius:40px;
+            background:var(--primary-subtle); color:var(--primary); flex-shrink:0; white-space:nowrap; }
+        .series-chip .sc-count.done { background:rgba(239, 68, 68, 0.12); color:#ef4444; }
 
         /* ===== Featured (latest issue) ===== */
         .featured { display:grid; grid-template-columns: 1.1fr 1fr; gap:0; margin-bottom:48px;
@@ -182,10 +209,13 @@
             .issues-grid { grid-template-columns:repeat(2,1fr); }
             .featured { grid-template-columns:1fr; }
             .featured-cover { min-height:200px; aspect-ratio:16/9; }
+            .series-chip { flex:1 0 calc(50% - 5px); }
         }
         @media (max-width:640px) {
             .navbar-inner { padding:0 16px; }
             .main { padding:24px 16px 40px; }
+            .series-bar { padding:14px 14px; margin-bottom:22px; }
+            .series-chip { flex:1 0 100%; padding:8px 12px; }
             .issues-grid { grid-template-columns:1fr; gap:16px; }
             .featured-content { padding:22px 20px; }
             .reader { padding:0; }
@@ -252,6 +282,8 @@
         :root[data-theme="dark"] .reader-cover img { filter:brightness(0.8); }
         :root[data-theme="dark"] .toast { background:var(--surface); }
         :root[data-theme="dark"] .art-nav-btn { background:var(--bg); }
+        :root[data-theme="dark"] .series-chip { background:rgba(30,41,59,0.7); }
+        :root[data-theme="dark"] .series-chip .sc-count.done { background:rgba(239, 68, 68, 0.16); color:#fca5a5; }
     </style>
 </head>
 <body>
@@ -285,10 +317,23 @@
                         </h1>
                         <div class="tagline" id="magTagline">记录青翔未阔工作室的思考与动态</div>
                     </div>
-                    <button class="submit-btn" type="button" onclick="showToast('投稿功能即将上线')">
+                    <button class="submit-btn" type="button" onclick="location.href='submit.html'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                         投稿
                     </button>
+                    <a href="review.html" class="submit-btn" id="adminReviewBtn" style="display:none;">审稿</a>
+                </div>
+            </div>
+
+            <div class="series-bar collapsed" id="seriesBar" style="display:none;">
+                <div class="series-head" id="seriesHead" role="button" aria-expanded="false" tabindex="0">
+                    <div class="series-title"><span class="dot"></span>各系列更新</div>
+                    <span class="series-toggle" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </span>
+                </div>
+                <div class="series-body">
+                    <div class="series-scroll" id="seriesScroll"></div>
                 </div>
             </div>
 
@@ -849,8 +894,76 @@
             }
         });
 
+        // ===== 投稿：通行证 SSO（投稿/审稿页共用登录通道与管理员入口校验） =====
+        var SUBMIT_API = 'https://travel.qxwkstudio.top';
+        var MAG_TOKEN_KEY = 'qxwk_mag_token';
+
+        // 页面加载时处理 SSO 回跳：URL 带 token 则落地到 localStorage 并清理地址栏
+        (function handleSsoLanding() {
+            var params = new URLSearchParams(location.search);
+            var token = params.get('token');
+            if (!token) return;
+            try { localStorage.setItem(MAG_TOKEN_KEY, token); } catch (e) {}
+            history.replaceState(null, '', location.origin + location.pathname);
+        })();
+
+        function magToken() { return localStorage.getItem(MAG_TOKEN_KEY) || ''; }
+
+        // 管理员审稿入口：仅当局端已保存登录态时才轻量校验并显示
+        (function () {
+            if (!magToken()) return;
+            fetch(SUBMIT_API + '/api/me', { headers: { 'Authorization': 'Bearer ' + magToken() } })
+                .then(function (r) { return r.status === 200 ? r.json() : null; })
+                .then(function (me) { if (me && me.is_admin) document.getElementById('adminReviewBtn').style.display = ''; })
+                .catch(function () {});
+        })();
+
         // 先解密 token（用于后续文章请求），再加载索引
-        decryptToken().then(function () { return loadIssues(); });
+        decryptToken().then(function () { loadIssues(); loadSeries(); });
+
+        // 加载系列卡片（同目录 series.json）
+        async function loadSeries() {
+            try {
+                var r = await fetch('series.json', { cache: 'force-cache' });
+                if (!r.ok) return;
+                var data = JSON.parse(await r.text());
+                if (!data || !data.series || !data.series.length) return;
+                renderSeries(data.series);
+            } catch(e) { /* series.json 缺失/解析失败则静默隐藏 */ }
+        }
+        function renderSeries(list) {
+            var bar = document.getElementById('seriesBar');
+            var box = document.getElementById('seriesScroll');
+            if (!bar || !box) return;
+            box.innerHTML = '';
+            list.forEach(function (s) {
+                var chip = document.createElement('div');
+                chip.className = 'series-chip';
+                var label = s.done ? '完结于' : '更新至';
+                chip.title = s.name + ' · ' + label + ' ' + s.count + ' 期 · 最近：' + s.lastIssue;
+                var countCls = 'sc-count' + (s.done ? ' done' : '');
+                var countText = s.done ? ('完结于' + s.count + '期') : ('更新至' + s.count + '期');
+                chip.innerHTML =
+                    '<span class="sc-icon">' + (s.icon || '📖') + '</span>' +
+                    '<div class="sc-info">' +
+                        '<div class="sc-name">' + esc(s.name) + '</div>' +
+                        '<div class="sc-meta">' + esc(s.lastIssue || '') + (s.lastTitle ? ' · ' + esc(s.lastTitle) : '') + '</div>' +
+                    '</div>' +
+                    '<span class="' + countCls + '">' + countText + '</span>';
+                box.appendChild(chip);
+            });
+            bar.style.display = '';
+            // 折叠交互
+            var head = document.getElementById('seriesHead');
+            function toggle() {
+                var isCollapsed = bar.classList.toggle('collapsed');
+                head.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+            }
+            head.addEventListener('click', toggle);
+            head.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+            });
+        }
     </script>
 </body>
 </html>
