@@ -21,7 +21,7 @@
             --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             --container: 1100px; --nav-height: 64px;
         }
-        :root { color-scheme: light; }
+        :root { color-scheme: light; --primary-subtle:rgba(37,99,235,0.08); }
         :root[data-theme="dark"] {
             --primary: #3b82f6; --primary-hover: #60a5fa;
             --secondary: #14b8a6;
@@ -133,6 +133,13 @@
         .toast svg { color:var(--primary); flex-shrink:0; }
         .toast.show { top:80px; opacity:1; }
 
+        .theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; background:none; border:none; border-radius:50%; color:var(--text-primary); cursor:pointer; transition:background var(--transition), color var(--transition); }
+        .theme-toggle:hover { background:var(--primary-subtle); color:var(--primary); }
+        .theme-toggle svg { width:22px; height:22px; }
+        .theme-toggle .icon-sun { display:none; }
+        :root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
+        :root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
+
         .footer { background:#0f172a; text-align:center; padding:28px 24px;
             color:var(--text-tertiary); font-size:0.82rem; border-top:1px solid rgba(255,255,255,0.06); }
         .footer-copy { opacity:0.6; }
@@ -146,12 +153,22 @@
     </style>
     <meta name="color-scheme" content="light dark">
     <script>
-        (function(){
-            var KEY='theme';var root=document.documentElement;var mq=window.matchMedia('(prefers-color-scheme: dark)');
-            function system(){return mq.matches?'dark':'light';}
-            function stored(){try{var v=localStorage.getItem(KEY);return(v==='dark'||v==='light')?v:null;}catch(e){return null;}}
-            function apply(t){root.setAttribute('data-theme',t);}
-            apply(stored()||system());
+        (function () {
+            var KEY = 'theme'; var root = document.documentElement; var mq = window.matchMedia('(prefers-color-scheme: dark)');
+            function system() { return mq.matches ? 'dark' : 'light'; }
+            function stored() { try { var v = localStorage.getItem(KEY); return (v === 'dark' || v === 'light') ? v : null; } catch (e) { return null; } }
+            function apply(t) { root.setAttribute('data-theme', t); }
+            function current() { return stored() || system(); }
+            apply(current());
+            function toggle() { var next = current() === 'dark' ? 'light' : 'dark'; apply(next); try { localStorage.setItem(KEY, next); } catch (e) {} }
+            function bind() {
+                var btn = document.getElementById('themeToggle');
+                if (btn) btn.addEventListener('click', toggle);
+                if (mq.addEventListener) mq.addEventListener('change', function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+                else if (mq.addListener) mq.addListener(function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+                window.addEventListener('storage', function (e) { if (e.key === KEY) apply(current()); });
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
         })();
     </script>
 </head>
@@ -162,10 +179,16 @@
                 <img src="/favicon.webp" alt="青翔未阔工作室" width="28" height="28" style="border-radius:5px;flex-shrink:0;">
                 未阔月刊 · 投稿审核
             </a>
+            <div style="display:flex;align-items:center;gap:10px;">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
             <a href="index" class="back-link">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
                 返回杂志
             </a>
+            </div>
         </div>
     </header>
 
