@@ -158,11 +158,11 @@
 <body>
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="index.html" class="navbar-brand" style="text-decoration:none;color:var(--text-primary);display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.15rem;letter-spacing:0.3px;">
+            <a href="index" class="navbar-brand" style="text-decoration:none;color:var(--text-primary);display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.15rem;letter-spacing:0.3px;">
                 <img src="/favicon.webp" alt="青翔未阔工作室" width="28" height="28" style="border-radius:5px;flex-shrink:0;">
                 未阔月刊 · 投稿审核
             </a>
-            <a href="index.html" class="back-link">
+            <a href="index" class="back-link">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
                 返回杂志
             </a>
@@ -210,6 +210,15 @@
         function ssoLoginUrl() { return 'https://account.qxwkstudio.top/login.html?redirect=' + encodeURIComponent(location.origin + location.pathname); }
         function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
         function statusLabel(s) { return { pending: '待审核', approved: '已通过', rejected: '已驳回' }[s] || s; }
+        // 后端以 SQLite datetime('now') 存 UTC（"YYYY-MM-DD HH:MM:SS"），在此转为本地时间
+        function fmtTime(t) {
+            if (!t) return '';
+            var d = new Date(String(t).replace(' ', 'T') + 'Z');
+            if (isNaN(d.getTime())) return String(t);
+            var p = function (n) { return String(n).padStart(2, '0'); };
+            return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' +
+                p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+        }
 
         // 页面加载：SSO 回跳落地 token
         (function ssHandle() {
@@ -285,7 +294,7 @@
                     '<span class="title">' + esc(s.title) + '</span>' +
                     (s.category ? '<span class="cat-chip">' + esc(s.category) + '</span>' : '') +
                     '</div>' +
-                    '<div class="meta"><span>' + esc(s.nickname) + '</span><span>·</span><span>' + esc(s.created_at || '') + '</span></div>';
+                    '<div class="meta"><span>' + esc(s.nickname) + '</span><span>·</span><span>' + esc(fmtTime(s.created_at)) + '</span></div>';
                 el.addEventListener('click', function () { openDetail(s.id); });
                 list.appendChild(el);
             });
@@ -301,7 +310,7 @@
                 statusLabel(s.status) + '</span>' + esc(s.title);
             document.getElementById('dMeta').innerHTML =
                 '<span>投稿人：' + esc(s.nickname) + '</span><span>·</span><span>分类：' + esc(s.category || '未填') + '</span>' +
-                '<span>·</span><span>' + esc(s.created_at || '') + '</span>';
+                '<span>·</span><span>' + esc(fmtTime(s.created_at)) + '</span>';
             document.getElementById('dBody').textContent = s.body || '';
             var cw = document.getElementById('dContactWrap');
             if (s.contact) { cw.hidden = false; document.getElementById('dContact').textContent = s.contact; }
