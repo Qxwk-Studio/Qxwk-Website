@@ -152,6 +152,14 @@
         }
         .empty { text-align:center; padding:40px 20px; color:var(--text-tertiary); font-size:0.9rem; }
 
+        /* ===== 加载中：校验会话时的过渡界面 ===== */
+        .loading-view { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+            gap:16px; padding:90px 20px; color:var(--text-secondary); font-size:0.92rem; }
+        .loading-spinner { width:36px; height:36px; border-radius:50%;
+            border:3px solid var(--border); border-top-color:var(--primary);
+            animation:spin 0.9s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+
         .login-cta { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
             padding:60px 24px; text-align:center; box-shadow:var(--shadow-sm); }
         .login-cta h2 { font-size:1.35rem; color:var(--text-primary); margin-bottom:10px; }
@@ -243,7 +251,7 @@
         </div>
     </header>
 
-    <div class="main"><div class="container" id="app"></div></div>
+    <div class="main"><div class="container" id="app"><div class="loading-view"><div class="loading-spinner"></div><p>正在加载账号信息…</p></div></div></div>
 
     <footer class="footer">
         <div class="footer-copy">2026 青翔未阔工作室</div>
@@ -273,12 +281,11 @@
     </div>
 
     <script>
-        // ===== 通行证 SSO + 调 cityfoot 后端 =====
+        // ===== 通行证 SSO（弹窗登录）+ 调 cityfoot 后端 =====
         var SUBMIT_API = 'https://travel.qxwkstudio.top';
         var MAG_TOKEN_KEY = 'qxwk_mag_token';
 
         function magToken() { return localStorage.getItem(MAG_TOKEN_KEY) || ''; }
-        function ssoLoginUrl() { return 'https://account.qxwkstudio.top/login.html?redirect=' + encodeURIComponent(location.origin + location.pathname); }
         function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
         function statusLabel(s) { return { pending: '待审核', approved: '已通过', rejected: '已驳回' }[s] || s; }
         // 后端以 SQLite datetime('now') 存 UTC（"YYYY-MM-DD HH:MM:SS"），在此转为本地时间
@@ -291,11 +298,26 @@
                 p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
         }
 
-        // 页面加载：SSO 回跳落地 token
-        (function ssHandle() {
-            var p = new URLSearchParams(location.search), t = p.get('token');
-            if (t) { try { localStorage.setItem(MAG_TOKEN_KEY, t); } catch (e) {} history.replaceState(null, '', location.origin + location.pathname); }
-        })();
+        // 通行证登录：电脑端弹窗（popup=1，登录后 postMessage 回传并关窗）；
+        // 手机端（含微信）无法可靠使用弹窗回传，改整页跳转（登录后带 token 回跳本页，由 ssoLanding 落地）
+        function passportLogin() {
+            var ssoUrl = 'https://account.qxwkstudio.top/login.html?redirect=' +
+                encodeURIComponent(location.origin + location.pathname);
+            if (/(Android|iPhone|iPad|iPod|Mobile)/i.test(navigator.userAgent)) {
+                location.href = ssoUrl;
+                return;
+            }
+            var w = window.open(ssoUrl + '&popup=1', 'qxwk_sso', 'width=420,height=640');
+            if (!w) alert('请允许浏览器弹出窗口，以便完成通行证登录');
+        }
+        // 监听通行证弹窗回传：type=qxwk-sso 且 origin 为通行证时落地登录并刷新
+        window.addEventListener('message', function (e) {
+            if (e.origin !== 'https://account.qxwkstudio.top') return;
+            var d = e.data || {};
+            if (d.type !== 'qxwk-sso' || !d.token) return;
+            try { localStorage.setItem(MAG_TOKEN_KEY, d.token); } catch (err) {}
+            location.reload();
+        });
 
         function showToast(msg) {
             var el = document.getElementById('toast');
@@ -318,7 +340,7 @@
         function renderLogin(msg) {
             app.innerHTML = '<div class="login-cta"><h2>' + (msg || '请先登录') + '</h2>' +
                 '<p>查看投稿状态需使用通行证账号登录。</p>' +
-                '<a class="btn btn-primary" href="' + ssoLoginUrl() + '">前往登录</a></div>';
+                '<button type="button" class="btn btn-primary" onclick="passportLogin()">前往登录</button></div>';
         }
 
         function regText(t) {

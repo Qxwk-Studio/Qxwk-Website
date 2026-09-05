@@ -224,13 +224,12 @@
     <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span id="toastText"></span></div>
 
     <script>
-        // ===== 通行证 SSO + 调 cityfoot 后端 =====
+        // ===== 通行证 SSO（弹窗登录）+ 调 cityfoot 后端 =====
         var SUBMIT_API = 'https://travel.qxwkstudio.top';
         var MAG_TOKEN_KEY = 'qxwk_mag_token';
         var curStatus = 'pending', curSub = null;
 
         function magToken() { return localStorage.getItem(MAG_TOKEN_KEY) || ''; }
-        function ssoLoginUrl() { return 'https://account.qxwkstudio.top/login.html?redirect=' + encodeURIComponent(location.origin + location.pathname); }
         function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : t; return d.innerHTML; }
         function statusLabel(s) { return { pending: '待审核', approved: '已通过', rejected: '已驳回' }[s] || s; }
         // 后端以 SQLite datetime('now') 存 UTC（"YYYY-MM-DD HH:MM:SS"），在此转为本地时间
@@ -243,11 +242,26 @@
                 p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
         }
 
-        // 页面加载：SSO 回跳落地 token
-        (function ssHandle() {
-            var p = new URLSearchParams(location.search), t = p.get('token');
-            if (t) { try { localStorage.setItem(MAG_TOKEN_KEY, t); } catch (e) {} history.replaceState(null, '', location.origin + location.pathname); }
-        })();
+        // 通行证登录：电脑端弹窗（popup=1，登录后 postMessage 回传并关窗）；
+        // 手机端（含微信）无法可靠使用弹窗回传，改整页跳转（登录后带 token 回跳本页，由 ssoLanding 落地）
+        function passportLogin() {
+            var ssoUrl = 'https://account.qxwkstudio.top/login.html?redirect=' +
+                encodeURIComponent(location.origin + location.pathname);
+            if (/(Android|iPhone|iPad|iPod|Mobile)/i.test(navigator.userAgent)) {
+                location.href = ssoUrl;
+                return;
+            }
+            var w = window.open(ssoUrl + '&popup=1', 'qxwk_sso', 'width=420,height=640');
+            if (!w) alert('请允许浏览器弹出窗口，以便完成通行证登录');
+        }
+        // 监听通行证弹窗回传：type=qxwk-sso 且 origin 为通行证时落地登录并刷新
+        window.addEventListener('message', function (e) {
+            if (e.origin !== 'https://account.qxwkstudio.top') return;
+            var d = e.data || {};
+            if (d.type !== 'qxwk-sso' || !d.token) return;
+            try { localStorage.setItem(MAG_TOKEN_KEY, d.token); } catch (err) {}
+            location.reload();
+        });
 
         function showToast(msg) {
             var el = document.getElementById('toast');
@@ -267,7 +281,7 @@
         function renderLogin(msg) {
             app.innerHTML = '<div class="login-cta"><h2>' + (msg || '请先登录') + '</h2>' +
                 '<p>投稿审核仅对管理员开放，需使用通行证账号登录。</p>' +
-                '<a class="btn btn-primary" href="' + ssoLoginUrl() + '">前往登录</a></div>';
+                '<button type="button" class="btn btn-primary" onclick="passportLogin()">前往登录</button></div>';
         }
         function renderDenied() {
             app.innerHTML = '<div class="denied"><h2>无权访问</h2><p>该页面仅对管理员开放，投稿审核由管理员处理。</p></div>';

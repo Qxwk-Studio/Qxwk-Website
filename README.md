@@ -14,43 +14,27 @@
 ### 🏠 首页 (`index.html`)
 - **全屏必应每日壁纸**：自动加载高清壁纸，毛玻璃欢迎区域 + 一言语录
 - **项目概览**：照片堆叠展示工作室项目，支持触摸滑动切换
-- **资源中心**：站内下载、站外下载（蓝奏云弹窗）、未阔月刊、画廊、页面仓库、MC 服务器状态、易错点测试、Sails GitHub 状态
-- **页面导航**：一中大辞典、City Footprint（足迹地图）、邮箱站、关于我们、更多工具（手机端每排 2 个卡片）
+- **功能导航**：Qxwk 通行证、City Footprint（足迹地图）、一中大辞典、未阔月刊、画廊
+- **在线工具**：班级教务系统、邮箱站、MC 服务器状态、易错点测试、Sails 今天工作了吗、更多工具
+- **资源中心**：站内下载、站外下载（蓝奏云弹窗）、网址导航、关于我们、页面仓库
 - **网站链接**：外部项目与合作站点直接展示
 
-### 📦 下载中心 (`tools/download.html`)
-- 通过 **GitHub API** 动态列出 [Qxwk-Files](https://github.com/Qxwk-Studio/Qxwk-Files) 仓库文件
-- 多标签页支持，自动解析文件名日期并按倒序排列
-- 展示文件类型、大小、修改日期，一键下载
-
-### 🖼️ 画廊 (`tools/gallery.html`)
-- 从 `Qxwk-Files/image-gallery` 目录动态读取图片
-- 分类标签页，响应式图片网格
-- 灯箱放大查看，键盘快捷键切换
-- 禁止右键下载保护
-
-### 📖 未阔月刊 (`magazine/index.html`)
-- 每月一刊，汇聚工作室动态、项目进展与成员随笔
-- 索引读取 `docs/magazine/issues.json`（期刊元数据、文章目录、作者），系列更新状态读取 `series.json`
-- 文章正文存储于 [Qxwk-Files/files-magazine](https://github.com/Qxwk-Studio/Qxwk-Files/tree/main/files-magazine)，按 `年-月` 目录组织，封面与正文均从仓库动态读取
-- 系列更新状态卡片：默认折叠、可展开，已完结系列以红色徽标标注
-
-### 👥 关于我们 (`about.html`)
-- 工作室介绍 + 一键邮件联系
-- 团队卡片（摸鱼成员 / 特别贡献 / 域名赞助）
-
-### 🛠️ 错误页面 (`404.html`)
-- 仿 Cloudflare 风格错误页
-- 实时 UTC 时钟同步
-
-### 📖 一中大辞典 (`dictionary/dictionary.html`)
-- 分类词条浏览，标题解锁验证
-- 全校卷内置音乐播放器
+### 🧭 功能导航 (`functions/`)
+- **一中大辞典** (`dictionary/index.html`) — 分类词条浏览，标题解锁验证；全校卷内置音乐播放器
+- **未阔月刊** (`magazine/index.html`) — 每月一刊，汇聚工作室动态、项目进展与成员随笔；索引读取 `issues.json`（期刊元数据、文章目录、作者），系列更新状态读取 `series.json`；文章正文存储于 [Qxwk-Files/files-magazine](https://github.com/Qxwk-Studio/Qxwk-Files/tree/main/files-magazine)，按 `年-月` 目录组织；系列更新状态卡片默认折叠、可展开，已完结系列以红色徽标标注
+- **画廊** (`gallery.html`) — 从 `Qxwk-Files/image-gallery` 目录动态读取图片；分类标签页、响应式图片网格、灯箱放大查看、键盘快捷键切换、禁止右键下载保护
 
 ### 🛠️ 工具页 (`tools/`)
 - **MC 服务器状态** (`mc-status.html`) — 查询 Minecraft 服务器在线状态、MOTD、玩家列表，支持多 API 回退
-- **易错点测试** (`26keys-quiz.html`) — 26键拼音输入法易错点测试，随机抽题、计时答题、结果回顾
-- **Sails GitHub 状态** (`sails.html`) — 查询 StarsailsClover 的 GitHub 用户信息、贡献日历、仓库动态
+- **易错点测试** (`26keys-quiz/index.html`) — 26键拼音输入法易错点测试，随机抽题、计时答题、结果回顾
+- **Sails GitHub 状态** (`salis/index.html`) — 查询 StarsailsClover 的 GitHub 用户信息、贡献日历、仓库动态
+
+### 📦 资源中心 (`resources/`)
+- **下载中心** (`download.html`) — 通过 **GitHub API** 动态列出 [Qxwk-Files](https://github.com/Qxwk-Studio/Qxwk-Files) 仓库文件；多标签页支持，自动解析文件名日期并按倒序排列；展示文件类型、大小、修改日期，一键下载
+- **关于我们** (`about.html`) — 工作室介绍 + 一键邮件联系；团队卡片（摸鱼成员 / 特别贡献 / 域名赞助）
+
+### 🛠️ 错误页面 (`404.html`)
+- 仿 Cloudflare 风格错误页；实时 UTC 时钟同步
 
 ## 🔌 使用的 API 与服务
 
@@ -69,7 +53,7 @@
 - **无依赖**：所有交互、弹窗、API 请求均在前端实现
 - **响应式设计**：移动端适配（手机端卡片每排 2 个）、毛玻璃效果、平滑滚动
 - **黑夜模式**：CSS 变量 + `data-theme` 属性驱动，跟随系统 `prefers-color-scheme` + 手动切换按钮（localStorage 记忆）
-- **托管平台**：GitHub Pages（`docs/` 目录部署）
+- **托管平台**：GitHub Pages（仓库根目录部署）
 
 > **⚠️ 如果您 fork 了本项目**：部署前请务必将所有链接（计数器、下载链接、联系方式等）修改为您自己的地址，请勿直接使用原站链接。
 

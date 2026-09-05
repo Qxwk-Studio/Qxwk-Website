@@ -298,7 +298,7 @@
 <body>
     <header class="navbar">
         <div class="navbar-inner">
-            <a href=".." class="navbar-brand">
+            <a href="../.." class="navbar-brand">
                 <img src="/favicon.webp" alt="青翔未阔工作室" width="28" height="28" style="border-radius:5px;flex-shrink:0;">
                 <span>青翔未阔工作室</span>
             </a>
@@ -307,7 +307,7 @@
                     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <a href=".." class="back-link">
+                <a href="../.." class="back-link">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
                     返回首页
                 </a>
@@ -907,21 +907,6 @@
                 if (currentArtIdx < arts.length - 1) selectArticle(currentArtIdx + 1);
             }
         });
-
-        // ===== 投稿：通行证 SSO（投稿/审稿页共用登录通道与管理员入口校验） =====
-        var SUBMIT_API = 'https://travel.qxwkstudio.top';
-        var MAG_TOKEN_KEY = 'qxwk_mag_token';
-
-        // 页面加载时处理 SSO 回跳：URL 带 token 则落地到 localStorage 并清理地址栏
-        (function handleSsoLanding() {
-            var params = new URLSearchParams(location.search);
-            var token = params.get('token');
-            if (!token) return;
-            try { localStorage.setItem(MAG_TOKEN_KEY, token); } catch (e) {}
-            history.replaceState(null, '', location.origin + location.pathname);
-        })();
-
-        function magToken() { return localStorage.getItem(MAG_TOKEN_KEY) || ''; }
 
         // 先解密 token（用于后续文章请求），再加载索引
         decryptToken().then(function () { loadIssues(); loadSeries(); });

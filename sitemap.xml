@@ -2,36 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://home.qxwkstudio.top/</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/about</loc>
+    <loc>https://home.qxwkstudio.top/resources/about</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/magazine/</loc>
+    <loc>https://home.qxwkstudio.top/functions/magazine/</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/tools/download</loc>
+    <loc>https://home.qxwkstudio.top/resources/download</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 <url>
-    <loc>https://home.qxwkstudio.top/tools/gallery</loc>
+    <loc>https://home.qxwkstudio.top/functions/gallery</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/dictionary/dictionary</loc>
+    <loc>https://home.qxwkstudio.top/functions/dictionary/</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -43,13 +43,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/tools/26keys-quiz</loc>
+    <loc>https://home.qxwkstudio.top/tools/26keys-quiz/</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://home.qxwkstudio.top/tools/sails</loc>
+    <loc>https://home.qxwkstudio.top/tools/salis/</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
