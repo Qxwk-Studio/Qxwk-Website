@@ -1,0 +1,213 @@
+{
+  "sections": [
+    {
+      "title": "Minecraft 网站",
+      "desc": "与 Minecraft 相关的网站推荐",
+      "color": "#16a34a",
+      "icon": "minecraft",
+      "groups": [
+        {
+          "title": "启动器",
+          "color": "#f97316",
+          "icon": "launcher",
+          "links": [
+            { "title": "PCL2 正式版下载", "url": "https://ifdian.net/p/0164034c016c11ebafcb52540025c377?ivk_sa=1024320u", "desc": "国产开源启动器，功能全面" },
+            { "title": "HMCL", "url": "https://hmcl.huangyuhui.net/", "desc": "开源跨平台启动器" },
+            { "title": "BakaXL", "url": "https://www.bakaxl.com/", "desc": "功能丰富的第三方启动器" }
+          ]
+        },
+        {
+          "title": "生成器",
+          "color": "#a855f7",
+          "icon": "sparkle",
+          "links": [
+            { "title": "可爱头像生成器", "url": "https://mccag.cn/", "desc": "生成 Minecraft 头像" },
+            { "title": "Pixel Papercraft", "url": "https://www.pixelpapercraft.com/", "desc": "像素纸模图纸生成" },
+            { "title": "AutoForge", "url": "https://autoforged.cn/zh/", "desc": "MC Mod 生成器" },
+            { "title": "Minecraft 艺术", "url": "https://mcpixelart.com/", "desc": "像素画生成工具" },
+            { "title": "Seed Map", "url": "https://www.chunkbase.com/apps/seed-map", "desc": "种子地图查看器" },
+            { "title": "烟花火箭生成器", "url": "https://www.digminecraft.com/generators/give_fireworks_rocket.php", "desc": "烟花火箭指令生成" },
+            { "title": "Gamer Geeks", "url": "https://www.gamergeeks.net/", "desc": "Minecraft 命令生成" },
+            { "title": "Lumen Weaver", "url": "https://lumenplatform.net/weaver/", "desc": "AI皮肤生成工具" },
+            { "title": "Minecraft Skin Editor", "url": "https://www.planetminecraft.com/skin-editor/", "desc": "在线皮肤编辑器" },
+            { "title": "SkinSprite Studio", "url": "https://sss.1m3.jp/", "desc": "可爱皮肤头像在线生成" }
+          ]
+        },
+        {
+          "title": "百科",
+          "color": "#3b82f6",
+          "icon": "book",
+          "links": [
+            { "title": "MC百科", "url": "https://www.mcmod.cn/", "desc": "模组资料百科" },
+            { "title": "中文 Minecraft Wiki", "url": "https://zh.minecraft.wiki/", "desc": "官方中文 Wiki" },
+            { "title": "Minecraft插件百科", "url": "https://mineplugin.org/%E9%A6%96%E9%A1%B5", "desc": "插件资料百科" },
+            { "title": "Minecraft Sounds", "url": "https://o.xbottle.top/mcsounds/", "desc": "音效在线试听" },
+            { "title": "MGC中文图形站", "url": "https://www.minegraph.cn/", "desc": "图形资源中文站" }
+          ]
+        },
+        {
+          "title": "托管",
+          "color": "#0d9488",
+          "icon": "server",
+          "links": [
+            { "title": "简幻欢", "url": "https://simpfun.cn/", "desc": "免费 MC 服务器托管" },
+            { "title": "LittleSkin", "url": "https://littleskin.cn/", "desc": "皮肤站与第三方认证" },
+            { "title": "OpenFrp Next", "url": "https://console.openfrp.net/dashboard", "desc": "免费内网穿透" },
+            { "title": "LoCyanFrp 仪表盘", "url": "https://dashboard.locyanfrp.cn/dashboard", "desc": "内网穿透管理面板" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Windows 镜像",
+      "desc": "Windows 系统镜像与 PE 工具",
+      "color": "#3b82f6",
+      "icon": "window",
+      "groups": [
+        {
+          "title": "PE官网",
+          "color": "#0d9488",
+          "icon": "window",
+          "links": [
+            { "title": "微PE工具箱", "url": "https://www.wepe.com.cn/", "desc": "轻量级 PE 维护工具" },
+            { "title": "FirPE Project", "url": "https://firpe.cn/", "desc": "精简 PE 系统项目" },
+            { "title": "Edgeless", "url": "https://home.edgeless.top/", "desc": "可定制化 PE 系统" }
+          ]
+        },
+        {
+          "title": "系统镜像",
+          "color": "#f97316",
+          "icon": "window",
+          "links": [
+            { "title": "MSDN系统库", "url": "https://www.xitongku.com/", "desc": "Windows 镜像资源库" },
+            { "title": "MSDN - 山己几子木", "url": "https://msdn.sjjzm.com/", "desc": "原版系统镜像下载" },
+            { "title": "MSDN - 原版之家", "url": "https://msdn.pe8.com/", "desc": "原版镜像下载站" },
+            { "title": "HelloWindow", "url": "https://hellowindows.cn/", "desc": "Windows 系统资源站" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "在线工具",
+      "desc": "在线格式转换与实用工具",
+      "color": "#0d9488",
+      "icon": "tool",
+      "groups": [
+        {
+          "title": "格式转换",
+          "color": "#3b82f6",
+          "icon": "convert",
+          "links": [
+            { "title": "Convertio", "url": "https://convertio.co/zh/", "desc": "全能格式在线转换" },
+            { "title": "ALL TO ALL", "url": "https://www.alltoall.net/", "desc": "全格式在线转换" },
+            { "title": "MP3转MIDI", "url": "https://anyconv.com/tw/mp3-zhuan-midi/", "desc": "音频转 MIDI 工具" },
+            { "title": "网易云NCM转换工具", "url": "http://tool.moxuangenet.com/tool/ncm/#", "desc": "NCM 加密格式转换" }
+          ]
+        },
+        {
+          "title": "图片处理",
+          "color": "#a855f7",
+          "icon": "image",
+          "links": [
+            { "title": "改图鸭", "url": "https://www.gaituya.com/", "desc": "在线图片处理工具" },
+            { "title": "Pixilart", "url": "https://www.pixilart.com/draw", "desc": "在线像素画绘制" },
+            { "title": "PixelTool", "url": "https://pixeltool.art/zh", "desc": "像素画制作工具" }
+          ]
+        },
+        {
+          "title": "影音工具",
+          "color": "#ec4899",
+          "icon": "video",
+          "links": [
+            { "title": "哔哩哔哩视频解析下载", "url": "https://snapany.com/zh/bilibili", "desc": "B站视频解析下载" },
+            { "title": "贝贝の站", "url": "https://xbeibeix.com/", "desc": "B站视频/文件下载工具" },
+            { "title": "ZEROROKU", "url": "https://zeroroku.com/", "desc": "B站数据观测站" }
+          ]
+        },
+        {
+          "title": "文字与效率",
+          "color": "#f59e0b",
+          "icon": "type",
+          "links": [
+            { "title": "Text To Speech", "url": "https://www.text-to-speech.cn/", "desc": "在线文字转语音" },
+            { "title": "语音转文字", "url": "https://turboscribe.ai/zh-CN/dashboard", "desc": "语音自动转字幕" },
+            { "title": "在线思维导图", "url": "https://www.jyshare.com/more/kitymind/index.html", "desc": "在线绘制思维导图" },
+            { "title": "积分计算器", "url": "https://mathdf.com/int/cn/", "desc": "定积分计算工具" },
+            { "title": "结构式编辑器", "url": "https://indrawforweb.integle.com/", "desc": "化学结构式绘制" }
+          ]
+        },
+        {
+          "title": "网络工具",
+          "color": "#0ea5e9",
+          "icon": "link",
+          "links": [
+            { "title": "临时邮箱", "url": "https://www.linshi-email.com/", "desc": "一次性临时邮箱" },
+            { "title": "UAPI", "url": "https://uapis.cn/docs/introduction", "desc": "免费 API 接口服务" }
+          ]
+        },
+        {
+          "title": "趣味小工具",
+          "color": "#14b8a6",
+          "icon": "game",
+          "links": [
+            { "title": "网页时钟", "url": "https://www.idcd.com/tool/time?ivk_sa=1024320u", "desc": "全屏网页时钟" },
+            { "title": "点击速度测试", "url": "https://cps-check.com/cn/click-test-1", "desc": "CPS 点击测速" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "生活服务",
+      "desc": "网址导航与出行、天气资讯",
+      "color": "#14b8a6",
+      "icon": "globe",
+      "groups": [
+        {
+          "title": "网址导航",
+          "color": "#3b82f6",
+          "icon": "globe",
+          "links": [
+            { "title": "沙雕导航网", "url": "https://shadiao.pro/", "desc": "趣味网址导航" },
+            { "title": "孟坤工具箱", "url": "http://tool.mkblog.cn/", "desc": "在线小工具合集" }
+          ]
+        },
+        {
+          "title": "铁路出行",
+          "color": "#f97316",
+          "icon": "train",
+          "links": [
+            { "title": "RailGo", "url": "https://railgo.dev/", "desc": "铁路出行查询规划" },
+            { "title": "轨记", "url": "https://www.raillog.top/", "desc": "火车旅行记录分享" },
+            { "title": "中国铁路地图", "url": "http://cnrail.geogv.org/zhcn/", "desc": "全国铁路线路图" }
+          ]
+        },
+        {
+          "title": "气象天气",
+          "color": "#0ea5e9",
+          "icon": "cloud",
+          "links": [
+            { "title": "多模式台风路径预报", "url": "https://jm.typhoon.vip/typhoon-model/", "desc": "台风路径多模式预报" }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "游戏娱乐",
+      "desc": "在线游戏与娱乐",
+      "color": "#f472b6",
+      "icon": "game",
+      "groups": [
+        {
+          "title": "在线游戏",
+          "color": "#3b82f6",
+          "icon": "game",
+          "links": [
+            { "title": "lichess", "url": "https://lichess.org/", "desc": "开源国际象棋平台" },
+            { "title": "Win7 Games", "url": "https://win7games.com/", "desc": "经典小游戏合集" },
+            { "title": "NB化学实验", "url": "https://hx.nobook.com/index.html#/console/templates", "desc": "在线虚拟化学实验" }
+          ]
+        }
+      ]
+    }
+  ]
+}
