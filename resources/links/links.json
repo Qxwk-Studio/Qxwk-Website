@@ -42,7 +42,17 @@
             { "title": "中文 Minecraft Wiki", "url": "https://zh.minecraft.wiki/", "desc": "官方中文 Wiki" },
             { "title": "Minecraft插件百科", "url": "https://mineplugin.org/%E9%A6%96%E9%A1%B5", "desc": "插件资料百科" },
             { "title": "Minecraft Sounds", "url": "https://o.xbottle.top/mcsounds/", "desc": "音效在线试听" },
-            { "title": "MGC中文图形站", "url": "https://www.minegraph.cn/", "desc": "图形资源中文站" }
+            { "title": "MGC中文图形站", "url": "https://www.minegraph.cn/", "desc": "图形资源中文站" },
+            { "title": "Minecraft 网址导航站", "url": "https://www.mcnav.net/", "desc": "MC 网站大全" }
+          ]
+        },
+        {
+          "title": "模组",
+          "color": "#e11d48",
+          "icon": "download",
+          "links": [
+            { "title": "Modrinth", "url": "https://modrinth.com/", "desc": "开源模组发布平台" },
+            { "title": "CurseForge", "url": "https://www.curseforge.com/minecraft", "desc": "大型模组下载平台" }
           ]
         },
         {
@@ -115,13 +125,32 @@
           ]
         },
         {
+          "title": "素材资源",
+          "color": "#10b981",
+          "icon": "image",
+          "links": [
+            { "title": "Pixabay", "url": "https://pixabay.com/zh/", "desc": "免费图片/视频素材库" }
+          ]
+        },
+        {
+          "title": "图形生成器",
+          "color": "#d946ef",
+          "icon": "sparkle",
+          "links": [
+            { "title": "Rail Map Toolkit", "url": "https://railmapgen.org/", "desc": "地铁线路图与导览牌生成" },
+            { "title": "地铁导向标识生成器", "url": "https://endcreeper861.github.io/JR-Guidance-Sign-Web-Editor/", "desc": "JR风地铁导向标识网页编辑器" },
+            { "title": "直到大地变成一颗酸橙", "url": "https://angelina-arknights.pages.dev/", "desc": "夏日纪念卡拼贴生成器" }
+          ]
+        },
+        {
           "title": "影音工具",
           "color": "#ec4899",
           "icon": "video",
           "links": [
             { "title": "哔哩哔哩视频解析下载", "url": "https://snapany.com/zh/bilibili", "desc": "B站视频解析下载" },
             { "title": "贝贝の站", "url": "https://xbeibeix.com/", "desc": "B站视频/文件下载工具" },
-            { "title": "ZEROROKU", "url": "https://zeroroku.com/", "desc": "B站数据观测站" }
+            { "title": "ZEROROKU", "url": "https://zeroroku.com/", "desc": "B站数据观测站" },
+            { "title": "MIDI Toolbox", "url": "https://miditoolbox.com/zh/player", "desc": "在线 MIDI 播放器" }
           ]
         },
         {
@@ -153,6 +182,28 @@
             { "title": "网页时钟", "url": "https://www.idcd.com/tool/time?ivk_sa=1024320u", "desc": "全屏网页时钟" },
             { "title": "点击速度测试", "url": "https://cps-check.com/cn/click-test-1", "desc": "CPS 点击测速" }
           ]
+        },
+        {
+          "title": "学习教程",
+          "color": "#8b5cf6",
+          "icon": "book",
+          "links": [
+            { "title": "AiDraw", "url": "https://guide.novelai.dev/", "desc": "AI 绘画教程与资源（SD/NovelAI）" },
+            { "title": "C++学习网", "url": "https://www.studycpp.cn/", "desc": "C++ 编程入门教程" },
+            { "title": "NeoForge 镜像教程", "url": "https://bbs.mcmod.cn/thread-22099-1-1.html", "desc": "NeoForge 镜像安装教程（MC百科论坛）" }
+          ]
+        },
+        {
+          "title": "AI 平台",
+          "color": "#6366f1",
+          "icon": "chat",
+          "links": [
+            { "title": "DeepSeek", "url": "https://chat.deepseek.com/", "desc": "国产 AI 对话助手" },
+            { "title": "Kimi", "url": "https://www.kimi.com/", "desc": "长文本 AI 助手" },
+            { "title": "硅基流动", "url": "https://cloud.siliconflow.cn/", "desc": "AI 模型 API 平台" },
+            { "title": "智谱AI开放平台", "url": "https://bigmodel.cn/console/overview", "desc": "GLM 模型开放平台" },
+            { "title": "LDW API", "url": "https://api.ldwnb666.xyz/", "desc": "AI API 中转服务" }
+          ]
         }
       ]
     },
@@ -168,7 +219,17 @@
           "icon": "globe",
           "links": [
             { "title": "沙雕导航网", "url": "https://shadiao.pro/", "desc": "趣味网址导航" },
-            { "title": "孟坤工具箱", "url": "http://tool.mkblog.cn/", "desc": "在线小工具合集" }
+            { "title": "孟坤工具箱", "url": "http://tool.mkblog.cn/", "desc": "在线小工具合集" },
+            { "title": "67tool", "url": "https://www.67tool.com/", "desc": "291 款在线小工具" },
+            { "title": "MikuTools", "url": "https://imiku.netlify.app/", "desc": "数十款实用工具合集" }
+          ]
+        },
+        {
+          "title": "地图服务",
+          "color": "#16a34a",
+          "icon": "map-pin",
+          "links": [
+            { "title": "天地图", "url": "https://map.tianditu.gov.cn/", "desc": "国家官方地图服务" }
           ]
         },
         {
@@ -178,7 +239,8 @@
           "links": [
             { "title": "RailGo", "url": "https://railgo.dev/", "desc": "铁路出行查询规划" },
             { "title": "轨记", "url": "https://www.raillog.top/", "desc": "火车旅行记录分享" },
-            { "title": "中国铁路地图", "url": "http://cnrail.geogv.org/zhcn/", "desc": "全国铁路线路图" }
+            { "title": "中国铁路地图", "url": "http://cnrail.geogv.org/zhcn/", "desc": "全国铁路线路图" },
+            { "title": "列车运行可视化系统", "url": "https://trainvisual.top/", "desc": "实时列车运行状态与时刻表查询" }
           ]
         },
         {
