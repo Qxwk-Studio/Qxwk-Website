@@ -21,13 +21,13 @@
 
 ### 🧭 功能导航 (`functions/`)
 - **一中大辞典** (`dictionary/index.html`) — 分类词条浏览，标题解锁验证；全校卷内置音乐播放器
-- **未阔月刊** (`magazine/index.html`) — 每月一刊，汇聚工作室动态、项目进展与成员随笔；索引读取 `issues.json`（期刊元数据、文章目录、作者），系列更新状态读取 `series.json`；文章正文存储于 [Qxwk-Files/files-magazine](https://github.com/Qxwk-Studio/Qxwk-Files/tree/main/files-magazine)，按 `年-月` 目录组织；系列更新状态卡片默认折叠、可展开，已完结系列以红色徽标标注
+- **未阔月刊** — 已迁至独立仓库 [Qxwk-Blog](https://github.com/Qxwk-Studio/Qxwk-Blog)（`blog.qxwkstudio.top`），与足迹站共享同一 D1 数据库；本站导航与卡片入口指向新博客
 - **画廊** (`gallery.html`) — 从 `Qxwk-Files/image-gallery` 目录动态读取图片；分类标签页、响应式图片网格、灯箱放大查看、键盘快捷键切换、禁止右键下载保护
 
 ### 🛠️ 工具页 (`tools/`)
 - **MC 服务器状态** (`mc-status.html`) — 查询 Minecraft 服务器在线状态、MOTD、玩家列表，支持多 API 回退
 - **易错点测试** (`26keys-quiz/index.html`) — 26键拼音输入法易错点测试，随机抽题、计时答题、结果回顾
-- **Sails GitHub 状态** (`salis/index.html`) — 查询 StarsailsClover 的 GitHub 用户信息、贡献日历、仓库动态
+- **Sails GitHub 状态** (`sails/index.html`) — 查询 StarsailsClover 的 GitHub 用户信息、贡献日历、仓库动态
 
 ### 📦 资源中心 (`resources/`)
 - **下载中心** (`download.html`) — 通过 **GitHub API** 动态列出 [Qxwk-Files](https://github.com/Qxwk-Studio/Qxwk-Files) 仓库文件；多标签页支持，自动解析文件名日期并按倒序排列；展示文件类型、大小、修改日期，一键下载

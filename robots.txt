@@ -1,11 +1,7 @@
 User-agent: *
 Disallow: /404.html
-Disallow: /dictionary/*.json
-Disallow: /tools/26keys-quiz.json
-Disallow: /tools/sails.json
-Disallow: /magazine/issues.json
-Disallow: /magazine/series.json
-Disallow: /magazine/review.html
-Disallow: /magazine/submit.html
+Disallow: /functions/dictionary/*.json
+Disallow: /tools/26keys-quiz/26keys-quiz.json
+Disallow: /tools/sails/sails.json
 
 Sitemap: https://home.qxwkstudio.top/sitemap.xml
