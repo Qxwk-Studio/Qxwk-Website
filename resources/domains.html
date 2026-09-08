@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>域名使用统计 - 青翔未阔工作室</title>
+    <meta name="description" content="青翔未阔工作室当前使用的域名一览：主站、账号通行证、City Footprint、Blog 等站点的访问地址与服务用途。">
+    <link rel="icon" type="image/webp" href="/favicon.webp">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb; --primary-hover: #1d4ed8; --primary-light: #eff6ff;
+            --primary-subtle: rgba(37,99,235,0.08); --secondary: #0d9488;
+            --surface: #ffffff; --bg: #f8fafc; --text-primary: #0f172a; --text-secondary: #64748b;
+            --text-tertiary: #94a3b8; --border: #e2e8f0;
+            --navbar-bg: rgba(255, 255, 255, 0.8); --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --radius-sm: 8px; --radius-md: 14px;
+            --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            --container: 1100px; --nav-height: 64px;
+        }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+        body {
+            font-family: var(--font-sans); background: var(--bg); color: var(--text-primary);
+            line-height: 1.6; -webkit-font-smoothing: antialiased;
+            min-height: 100vh; display: flex; flex-direction: column;
+        }
+        /* ===== Navbar ===== */
+        .navbar {
+            position: sticky; top: 0; width: 100%; height: var(--nav-height); z-index: 100;
+            background: var(--navbar-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.08); }
+        .navbar-inner {
+            max-width: var(--container); margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between; height: 100%;
+        }
+        .navbar-brand {
+            display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary);
+            font-weight: 600; font-size: 1.15rem; letter-spacing: 0.3px; transition: opacity var(--transition);
+        }
+        .navbar-brand:hover { opacity: 0.85; }
+        .back-link {
+            display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+            background: rgba(37,99,235,0.15); color: var(--text-primary); text-decoration: none;
+            border-radius: 40px; font-size: 0.88rem; font-weight: 500;
+            backdrop-filter: blur(4px); border: 1px solid rgba(147,197,253,0.35);
+            transition: all var(--transition); white-space: nowrap;
+        }
+        .back-link:hover { background: rgba(37,99,235,0.3); border-color: rgba(147,197,253,0.6); transform: scale(1.02); }
+        /* ===== Main ===== */
+        .main { flex: 1; padding: 40px 24px 60px; }
+        .container { max-width: var(--container); margin: 0 auto; }
+        .page-header {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+            gap: 16px; margin-bottom: 36px;
+        }
+        .page-header h1 {
+            font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; color: var(--text-primary);
+        }
+        .section { margin-bottom: 40px; }
+        .section-title {
+            font-size: 1.3rem; font-weight: 600; color: var(--text-primary);
+            margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title svg { flex-shrink: 0; }
+        .stat-row {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+        }
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 20px; text-align: center; box-shadow: var(--shadow-sm);
+        }
+        .stat-num { font-size: 1.7rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        .domain-grid {
+            display: grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        .domain-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 24px; transition: transform var(--transition), box-shadow var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .domain-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .domain-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .domain-name { font-size: 1.2rem; font-weight: 700; color: var(--primary); word-break: break-all; }
+        .domain-index {
+            display: inline-flex; align-items: center; font-size: 0.78rem; font-weight: 700;
+            color: var(--primary); background: var(--primary-subtle);
+            border-radius: 6px; padding: 1px 7px; margin-right: 10px; vertical-align: 2px;
+        }
+        .domain-status {
+            flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.72rem; font-weight: 600; padding: 3px 10px;
+            border-radius: 40px; background: var(--primary-subtle); color: var(--primary);
+        }
+        .domain-status::before {
+            content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+        }
+        .domain-status[data-state="ok"] { background: rgba(22,163,74,0.14); color: #16a34a; }
+        .domain-status[data-state="down"] { background: rgba(220,38,38,0.12); color: #dc2626; }
+        .domain-status[data-state="checking"] { background: var(--primary-subtle); color: var(--text-tertiary); }
+        .domain-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-top: 14px; }
+        .domain-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-top: 6px; }
+        .domain-tech {
+            display: inline-block; margin-top: 16px; font-size: 0.75rem; color: var(--text-tertiary);
+            background: var(--bg); border: 1px solid var(--border); border-radius: 40px; padding: 3px 10px;
+        }
+        .domain-sub {
+            width: 100%; margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border);
+        }
+        .domain-sub-label { font-size: 0.72rem; color: var(--text-tertiary); margin-bottom: 10px; }
+        .domain-item {
+            display: flex; align-items: baseline; gap: 10px; line-height: 1.8;
+        }
+        .domain-dot {
+            flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%;
+            background: var(--primary);
+        }
+        .domain-item-domain { font-weight: 600; color: var(--text-secondary); word-break: break-all; }
+        .domain-item-desc { margin-left: auto; font-size: 0.78rem; color: var(--text-tertiary); text-align: right; min-width: 60px; }
+        .note {
+            font-size: 0.85rem; color: var(--text-secondary); background: var(--primary-subtle);
+            border: 1px solid rgba(37,99,235,0.15); border-radius: var(--radius-sm);
+            padding: 14px 16px; line-height: 1.7;
+        }
+        /* ===== Footer ===== */
+        .footer {
+            background: #0f172a; text-align: center; padding: 28px 24px;
+            color: var(--text-tertiary); font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-copy { opacity: 0.6; }
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            .page-header { flex-direction: column; align-items: flex-start; }
+            .navbar-inner { padding: 0 16px; }
+            .main { padding: 28px 16px 40px; }
+            .domain-card { padding: 18px 16px; }
+            .domain-name { font-size: 1.1rem; }
+            .domain-item { flex-wrap: wrap; line-height: 1.7; margin-bottom: 6px; }
+            .domain-item-desc { margin-left: 0; width: 100%; text-align: left; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+    <meta name="color-scheme" content="light dark">
+    <script>
+    /* 主题切换：localStorage('theme') 优先，其次跟随系统 prefers-color-scheme；同步写入 <html> 的 data-theme 防闪烁 */
+    (function () {
+        var KEY = 'theme';
+        var root = document.documentElement;
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        function system() { return mq.matches ? 'dark' : 'light'; }
+        function stored() { try { var v = localStorage.getItem(KEY); return (v === 'dark' || v === 'light') ? v : null; } catch (e) { return null; } }
+        function apply(t) { root.setAttribute('data-theme', t); }
+        function current() { return stored() || system(); }
+        apply(current());
+        function toggle() { var next = current() === 'dark' ? 'light' : 'dark'; apply(next); try { localStorage.setItem(KEY, next); } catch (e) {} }
+        function bind() {
+            var btn = document.getElementById('themeToggle');
+            if (btn) btn.addEventListener('click', toggle);
+            if (mq.addEventListener) mq.addEventListener('change', function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+            else if (mq.addListener) mq.addListener(function (e) { if (!stored()) apply(e.matches ? 'dark' : 'light'); });
+            window.addEventListener('storage', function (e) { if (e.key === KEY) apply(current()); });
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
+    })();
+    </script>
+    <style>
+        /* ===== 黑夜模式：主题切换按钮 ===== */
+        .theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; background:none; border:none; border-radius:50%; color:var(--text-primary); cursor:pointer; transition:background var(--transition), color var(--transition); }
+        .theme-toggle:hover { background:var(--primary-subtle); color:var(--primary); }
+        .theme-toggle svg { width:22px; height:22px; }
+        .theme-toggle .icon-sun { display:none; }
+        :root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
+        :root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
+
+        /* ===== 黑夜模式：深色变量 ===== */
+        :root { color-scheme: light; --primary-light:#eff6ff; --primary-subtle:rgba(37,99,235,0.08); }
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --primary-light: rgba(59,130,246,0.16);
+            --primary-subtle: rgba(59,130,246,0.16);
+            --surface:#1e293b; --bg:#0f172a;
+            --text-primary:#e2e8f0; --text-secondary:#94a3b8; --text-tertiary:#64748b;
+            --border:#334155; --navbar-bg:rgba(15,23,42,0.8);
+            --shadow-sm:0 1px 3px rgba(0,0,0,0.4); --shadow-md:0 4px 16px rgba(0,0,0,0.5); --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
+        }
+        :root[data-theme="dark"] .footer { background:#111827; }
+        :root[data-theme="dark"] .domain-name { color:#60a5fa; }
+        :root[data-theme="dark"] .domain-status { background:rgba(59,130,246,0.16); color:#60a5fa; }
+        :root[data-theme="dark"] .domain-status[data-state="ok"] { background:rgba(34,197,94,0.16); color:#4ade80; }
+        :root[data-theme="dark"] .domain-status[data-state="down"] { background:rgba(248,113,113,0.14); color:#f87171; }
+        :root[data-theme="dark"] .domain-status[data-state="checking"] { color:#64748b; }
+
+        /* ===== 黑夜模式：页面元素覆盖 ===== */
+        :root[data-theme="dark"] .back-link { background:rgba(59,130,246,0.16); border-color:rgba(96,165,250,0.35); }
+        :root[data-theme="dark"] .back-link:hover { background:rgba(59,130,246,0.30); border-color:rgba(96,165,250,0.60); }
+        :root[data-theme="dark"] .navbar.scrolled { background:rgba(15,23,42,0.95); box-shadow:0 1px 12px rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+    <header class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href=".." class="navbar-brand">
+                <img src="/favicon.webp" alt="青翔未阔工作室" width="28" height="28" style="border-radius:5px; flex-shrink:0;">
+                <span>青翔未阔工作室</span>
+            </a>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <a href=".." class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+                    返回首页
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px; margin-right:8px;"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    域名使用统计
+                </h1>
+            </div>
+
+            <!-- 概览 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 1.5 17V7a6 6 0 0 1 6-6h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7.5A2.5 2.5 0 0 0 5 7.5"/><path d="M13 13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2z"/></svg>
+                    概览
+                </h2>
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-num">5</div>
+                        <div class="stat-label">使用中域名</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">4</div>
+                        <div class="stat-label">在营站点</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">2</div>
+                        <div class="stat-label">部署平台</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用的域名 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    使用的域名
+                </h2>
+                <div class="domain-grid" id="domainList"></div>
+            </div>
+
+            <div class="section">
+                <div class="note">本站为青翔未阔工作室旗下及各合作项目提供 <code>*.qxwkstudio.top</code> 三级域名，<strong>可以免费使用喵</strong>。如有需要，欢迎通过邮箱 <a href="mailto:QxwkStudio@outlook.com">QxwkStudio@outlook.com</a> 或者任何方式联系我们。</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-copy">2026 青翔未阔工作室</div>
+    </footer>
+
+    <script>
+        const domains = [
+            {
+                domain: 'home.qxwkstudio.top',
+                title: '青翔未阔工作室官网',
+                desc: '青翔未阔工作室的官方网站 —— 集资源下载、画廊、项目展示、团队介绍于一体，全静态页面，开箱即用，完美运行于 GitHub Pages。',
+                tech: 'GitHub Pages 静态托管'
+            },
+            {
+                domain: 'account.qxwkstudio.top',
+                title: 'Qxwk 账号通行证',
+                desc: '青翔未阔工作室的统一账号中心。一处登录，处处通行。',
+                tech: 'Cloudflare Workers + D1',
+                children: [
+                    { name: 'send', desc: '账号验证邮件发送服务（Resend）' }
+                ]
+            },
+            {
+                domain: 'travel.qxwkstudio.top',
+                title: 'City Footprint',
+                desc: '记录每个人去过的城市，在足迹地图上点亮属于自己的颜色。登录通行证后把自己去过的城市打点在地图上，和朋友们一起拼出一张五彩斑斓的足迹大地图。',
+                tech: 'Cloudflare Workers + D1'
+            },
+            {
+                domain: 'blog.qxwkstudio.top',
+                title: '青翔未阔博客',
+                desc: '青翔未阔工作室博客 —— 分为青翔博客（随心记录）与未阔月刊（每月一刊），全 Worker 一体架构，绑定与 City Footprint 相同的 D1 数据库。',
+                tech: 'Cloudflare Workers + D1'
+            },
+            {
+                domain: 'mail.qxwkstudio.top',
+                title: '邮箱服务',
+                desc: '工作室的域名邮箱，托管于阿里云企业邮箱（所以域名检测离线是正常的）；提供 Webmail 收发与 smtp/pop3/imap 协议接入入口。',
+                tech: '阿里云企业邮箱',
+                children: [
+                    { name: 'mail', desc: 'Webmail 登录（阿里云企业邮箱）' },
+                    { name: 'smtp', desc: '发件服务（阿里云企业邮箱）' },
+                    { name: 'pop3', desc: '收件 POP3（阿里云企业邮箱）' },
+                    { name: 'imap', desc: '收件 IMAP（阿里云企业邮箱）' }
+                ]
+            }
+        ];
+
+        const PROBE_TIMEOUT = 6000;              // 探活超时(ms)
+const PROBE_URLS = {                      // 每个主域名对应的探测地址（HTTP 站点）
+    'home.qxwkstudio.top': location.origin + '/',
+    'account.qxwkstudio.top': 'https://account.qxwkstudio.top/',
+    'travel.qxwkstudio.top': 'https://travel.qxwkstudio.top/',
+    'blog.qxwkstudio.top': 'https://blog.qxwkstudio.top/',
+    'mail.qxwkstudio.top': 'https://mail.qxwkstudio.top/'
+};
+
+// 单域探活：no-cors 跨域 HEAD，能收到服务端响应即视为可达（opaque 不读状态码），超时或网络错误视为离线
+function probe(url, timeout) {
+    return new Promise(resolve => {
+        const ac = new AbortController();
+        const t = setTimeout(() => ac.abort(), timeout);
+        fetch(url, { method: 'HEAD', mode: 'no-cors', cache: 'no-store', signal: ac.signal })
+            .then(() => { clearTimeout(t); resolve(true); })
+            .catch(() => { clearTimeout(t); resolve(false); });
+    });
+}
+
+// 并发检测所有主域名并回填状态徽章
+function startStatusChecks() {
+    const chips = document.querySelectorAll('.domain-status');
+    domains.forEach((d, i) => {
+        const probeUrl = PROBE_URLS[d.domain];
+        const chip = chips[i];
+        if (!probeUrl || !chip) { if (chip) { setState(chip, probeUrl ? 'checking' : 'ok'); } return; }
+        probe(probeUrl, PROBE_TIMEOUT).then(ok => setState(chip, ok ? 'ok' : 'down', d.domain));
+    });
+}
+function setState(chip, state, domain) {
+    chip.dataset.state = state;
+    chip.textContent = state === 'ok' ? '在线' : (state === 'down' ? '离线' : '检测中');
+    chip.title = state === 'down' && domain ? `无法从当前网络访问 ${domain}` : '';
+}
+
+function renderDomains() {
+            const list = document.getElementById('domainList');
+            if (!list) return;
+            let html = '';
+            domains.forEach((d, i) => {
+                let sub = '';
+                const n = String(i + 1).padStart(2, '0');
+                if (d.children && d.children.length) {
+                    const items = d.children.map(c =>
+                        `<div class="domain-item">
+                            <span class="domain-dot"></span>
+                            <span class="domain-item-domain">${esc(c.name + '.' + d.domain)}</span>
+                            <span class="domain-item-desc">${esc(c.desc)}</span>
+                        </div>`
+                    ).join('');
+                    sub = `<div class="domain-sub">
+                        <div class="domain-sub-label">子域名</div>
+                        ${items}
+                    </div>`;
+                }
+                html += `<div class="domain-card">
+                    <div class="domain-top">
+                        <span class="domain-name"><span class="domain-index">${n}</span>${esc(d.domain)}</span>
+                        <span class="domain-status" data-state="checking" title="正在检测…">检测中</span>
+                    </div>
+                    <div class="domain-title">${esc(d.title)}</div>
+                    <div class="domain-desc">${esc(d.desc)}</div>
+                    <div class="domain-tech">${esc(d.tech)}</div>
+                    ${sub}
+                </div>`;
+            });
+            list.innerHTML = html;
+            startStatusChecks();
+        }
+        function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+        renderDomains();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+    </script>
+</body>
+</html>
