@@ -162,7 +162,8 @@
             { "title": "语音转文字", "url": "https://turboscribe.ai/zh-CN/dashboard", "desc": "语音自动转字幕" },
             { "title": "在线思维导图", "url": "https://www.jyshare.com/more/kitymind/index.html", "desc": "在线绘制思维导图" },
             { "title": "积分计算器", "url": "https://mathdf.com/int/cn/", "desc": "定积分计算工具" },
-            { "title": "结构式编辑器", "url": "https://indrawforweb.integle.com/", "desc": "化学结构式绘制" }
+            { "title": "结构式编辑器", "url": "https://indrawforweb.integle.com/", "desc": "化学结构式绘制" },
+            { "title": "JSONSwiss", "url": "https://jsonswiss.com/zh-cn", "desc": "处理 JSON 所需的一切工具，尽在一处" }
           ]
         },
         {

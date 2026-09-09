@@ -240,11 +240,11 @@
                 </h2>
                 <div class="stat-row">
                     <div class="stat-card">
-                        <div class="stat-num">5</div>
+                        <div class="stat-num">6</div>
                         <div class="stat-label">使用中域名</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">4</div>
+                        <div class="stat-num">5</div>
                         <div class="stat-label">在营站点</div>
                     </div>
                     <div class="stat-card">
@@ -313,6 +313,12 @@
                     { name: 'pop3', desc: '收件 POP3（阿里云企业邮箱）' },
                     { name: 'imap', desc: '收件 IMAP（阿里云企业邮箱）' }
                 ]
+            },
+            {
+                domain: 'class.qxwkstudio.top',
+                title: 'Class Assistant —— 班级助理',
+                desc: '面向「班长」角色的 AI 助理系统：把转发通知、活动提醒、同学答疑、材料催收等机械化的班级事务，交给运行在本地服务器上的 AI Agent 自动完成。',
+                tech: 'Cloudflare Pages + D1'
             }
         ];
 
@@ -322,7 +328,8 @@ const PROBE_URLS = {                      // 每个主域名对应的探测地�
     'account.qxwkstudio.top': 'https://account.qxwkstudio.top/',
     'travel.qxwkstudio.top': 'https://travel.qxwkstudio.top/',
     'blog.qxwkstudio.top': 'https://blog.qxwkstudio.top/',
-    'mail.qxwkstudio.top': 'https://mail.qxwkstudio.top/'
+    'mail.qxwkstudio.top': 'https://mail.qxwkstudio.top/',
+    'class.qxwkstudio.top': 'https://class.qxwkstudio.top/'
 };
 
 // 单域探活：no-cors 跨域 HEAD，能收到服务端响应即视为可达（opaque 不读状态码），超时或网络错误视为离线
