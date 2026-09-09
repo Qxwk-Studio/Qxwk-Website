@@ -190,7 +190,7 @@
           "links": [
             { "title": "AiDraw", "url": "https://guide.novelai.dev/", "desc": "AI 绘画教程与资源（SD/NovelAI）" },
             { "title": "C++学习网", "url": "https://www.studycpp.cn/", "desc": "C++ 编程入门教程" },
-            { "title": "安娜图书馆", "url": "https://annas-archive.is/zh-cn", "desc": "去中心化的书籍下载站,类似于 Z-Library" },
+            { "title": "安娜图书馆", "url": "https://annas-archive.is/zh-cn", "desc": "去中心化的书籍下载站，类似于 Z-Library" },
             { "title": "NeoForge 镜像教程", "url": "https://bbs.mcmod.cn/thread-22099-1-1.html", "desc": "NeoForge 镜像安装教程（MC百科论坛）" }
           ]
         },
