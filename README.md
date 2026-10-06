@@ -21,7 +21,7 @@
 
 ### 🧭 功能导航 (`functions/`)
 - **一中大辞典** (`dictionary/index.html`) — 分类词条浏览，标题解锁验证；全校卷内置音乐播放器
-- **未阔月刊** — 已迁至独立仓库 [Qxwk-Blog](https://github.com/Qxwk-Studio/Qxwk-Blog)（`blog.qxwkstudio.top`），与足迹站共享同一 D1 数据库；本站导航与卡片入口指向新博客
+- **未阔月刊** — 已迁至独立仓库 [Qxwk-Blog](https://github.com/Qxwk-Studio/Qxwk-Blog)（`blog.qxwkstudio.top`），纯静态站点（Cloudflare Workers 托管）；本站导航与卡片入口指向该站
 - **画廊** (`gallery.html`) — 从 `Qxwk-Files/image-gallery` 目录动态读取图片；分类标签页、响应式图片网格、灯箱放大查看、键盘快捷键切换、禁止右键下载保护
 
 ### 🛠️ 工具页 (`tools/`)
