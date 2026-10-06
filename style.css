@@ -1,0 +1,164 @@
+/* 青翔未阔工作室主站公共样式
+   被这十个页面共用：index、functions/gallery、functions/dictionary、resources/about、
+   resources/domains、resources/download、resources/links、tools/26keys-quiz、
+   tools/mc-status、tools/sails（404.html 是独立的 Cloudflare 错误页，不引入本文件）。
+   各页在 <head> 自己的第一个内联 <style> 之前用 <link rel="stylesheet" href="/style.css"> 引入，
+   页面内联样式排在它之后，所以页面内联样式仍能覆盖本文件的同名规则。
+   这里放的是「各页应保持一致」的规则，并已统一到多数页面的写法（少数派的内联覆盖已删）：
+     · 变量（亮色 :root 与深色 :root[data-theme="dark"]）
+     · reset（* 通配）、html 的平滑滚动与 body 基础排版
+     · 导航栏（.navbar / .navbar.scrolled / .navbar-inner / .navbar-brand / .back-link，含深色覆盖）
+     · 主体与容器（.main / .container）与页面头部（.page-header）
+     · 页脚（.footer / .footer-copy，含深色覆盖）
+     · 主题切换按钮（.theme-toggle）与图标切换
+     · 640px 断点下的 .navbar-inner / .main / .page-header
+     · 通用动画（@keyframes spin）与 prefers-reduced-motion 兜底
+   页面特有的样式（.section、卡片、各工具自己的组件等）仍留在各页内联 <style>。
+   新增「各页应保持一致」的规则请加到这里；只有某一页用到的规则不要加，那正是以前各页跑偏的原因。
+   搬走的规则保持了原有的先后顺序：页面内联样式依赖「外链在前、内联在后」来覆盖，顺序不要打乱。 */
+
+/* ========= Reset & Base ========= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* 统一到多数派：scroll-padding-top 原来只有首页 / about / links / domains 写了，
+   其余页面没有锚点、加上无害，于是统一带上；那四页内联里的整条 html 规则已删。 */
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+/* 统一到多数派：9 个内页共同的 body 写法。首页原先缺 min-height/display/flex-direction，
+   另有 overflow-x:hidden —— 它会把 body 变成滚动容器、破坏 sticky 导航，已按统一版去掉
+   （首页实测无横向滚动，未再加任何 overflow-x）。 */
+body {
+    font-family: var(--font-sans); background: var(--bg); color: var(--text-primary);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+}
+
+/* ========= 颜色与尺寸变量（亮色） ========= */
+/* 取自各页 :root 与其他页面主题块里的 :root { color-scheme: light; --primary-light; --primary-subtle; } 的并集；
+   --radius-lg / --shadow-lg 原先只有首页用，一并放这里作为通用层级，未用到它们的页面不受影响。 */
+:root {
+    color-scheme: light;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #eff6ff;
+    --primary-subtle: rgba(37,99,235,0.08);
+    --secondary: #0d9488;
+    --surface: #ffffff;
+    --bg: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-tertiary: #94a3b8;
+    --border: #e2e8f0;
+    --navbar-bg: rgba(255, 255, 255, 0.8);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --container: 1100px;
+    --nav-height: 64px;
+}
+
+/* ========= Navbar =========
+   统一到多数派：sticky、带 transition 与 .navbar.scrolled 的版本（about / links / domains 原本已是这套写法）。
+   首页原为 position:fixed + z-index:1000 + left:0，现改为与其余页一致的 sticky —— 导航因此正常占位，
+   也不再需要任何导航高度补偿（首页内联里本就没有 padding-top: var(--nav-height) 之类的补偿）；
+   about / links / domains 内联里的整条 .navbar 覆盖已删。 */
+.navbar {
+    position: sticky; top: 0; width: 100%; height: var(--nav-height); z-index: 100;
+    background: var(--navbar-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition), box-shadow var(--transition);
+}
+/* 原本只在 about / links / domains 三页内联里（连同深色覆盖）出现，现统一到此处。
+   只有这三页自带滚动监听 JS 会加 .scrolled，其它页面没有该 JS，规则在它们那里不会被触发。 */
+.navbar.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.08); }
+.navbar-inner {
+    max-width: var(--container); margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between; height: 100%;
+}
+/* 统一到多数派：1.15rem / letter-spacing:0.3px，且不带 flex-shrink。
+   首页原为 1.2rem / 0.5px + flex-shrink:0，已向内页看齐；
+   首页 480px 里把 .navbar-brand 调到 1.05rem 的窄屏微调仍是额外补充，保留在其内联。 */
+.navbar-brand {
+    display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary);
+    font-weight: 600; font-size: 1.15rem; letter-spacing: 0.3px; transition: opacity var(--transition);
+}
+.navbar-brand:hover { opacity: 0.85; }
+.back-link {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
+    background: rgba(37,99,235,0.15); color: var(--text-primary); text-decoration: none;
+    border-radius: 40px; font-size: 0.88rem; font-weight: 500;
+    backdrop-filter: blur(4px); border: 1px solid rgba(147,197,253,0.35);
+    transition: all var(--transition); white-space: nowrap;
+}
+.back-link:hover { background: rgba(37,99,235,0.3); border-color: rgba(147,197,253,0.6); transform: scale(1.02); }
+
+/* ========= Main / Container ========= */
+/* 统一到多数派：36px 上内边距。about / links / domains 原为 40px、
+   sails 又在 ≥641px 另写 36px 48px 60px，这些内联覆盖都已删。 */
+.main { flex: 1; padding: 36px 24px 60px; }
+.container { max-width: var(--container); margin: 0 auto; }
+
+/* ========= 页面头部 ========= */
+/* 统一到多数派：横排 flex + 28px 下边距（gallery / 字典 / download / mc-status / sails 本就是 28px；
+   about / links / domains 原为 36px、26keys 原为 32px，均已向内看齐）。
+   例外：sails 的 .page-header 内是「标题 + 副标题」两个块级子元素，需要竖排，
+   不能让这条横排规则套上去，因此它在自己内联里补了 flex-direction:column; align-items:flex-start; */
+.page-header {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    gap: 16px; margin-bottom: 28px;
+}
+
+/* ========= Footer =========
+   统一到多数派：padding:28px 24px / font-size:0.82rem。
+   首页原为 padding:40px 24px 32px + font-size:0.84rem，已向内页看齐。 */
+.footer {
+    background: #0f172a; text-align: center; padding: 28px 24px;
+    color: var(--text-tertiary); font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-copy { opacity: 0.6; }
+
+/* ========= 主题切换按钮 ========= */
+.theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; background:none; border:none; border-radius:50%; color:var(--text-primary); cursor:pointer; transition:background var(--transition), color var(--transition); }
+.theme-toggle:hover { background:var(--primary-subtle); color:var(--primary); }
+.theme-toggle svg { width:22px; height:22px; }
+.theme-toggle .icon-sun { display:none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
+
+/* ========= 深色变量（各页完全一致） ========= */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --primary-light: rgba(59,130,246,0.16);
+    --primary-subtle: rgba(59,130,246,0.16);
+    --surface:#1e293b; --bg:#0f172a;
+    --text-primary:#e2e8f0; --text-secondary:#94a3b8; --text-tertiary:#64748b;
+    --border:#334155; --navbar-bg:rgba(15,23,42,0.8);
+    --shadow-sm:0 1px 3px rgba(0,0,0,0.4); --shadow-md:0 4px 16px rgba(0,0,0,0.5); --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* ========= 深色：跨页一致的覆盖 ========= */
+/* .navbar.scrolled 的深色覆盖原在 about / links / domains 三页内联，随该规则一并搬来。 */
+:root[data-theme="dark"] .navbar.scrolled { background:rgba(15,23,42,0.95); box-shadow:0 1px 12px rgba(0,0,0,0.4); }
+:root[data-theme="dark"] .footer { background:#111827; }
+:root[data-theme="dark"] .back-link { background:rgba(59,130,246,0.16); border-color:rgba(96,165,250,0.35); }
+:root[data-theme="dark"] .back-link:hover { background:rgba(59,130,246,0.30); border-color:rgba(96,165,250,0.60); }
+
+/* ========= 通用动画 ========= */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ========= 响应式（跨页一致） =========
+   统一到 640px 断点（首页原用 768px，该块的 .navbar-inner 覆盖已删）。
+   about / links / domains 手机端 .main 原为 28px 上内边距，统一成 24px（多数派）。 */
+@media (max-width: 640px) {
+    .navbar-inner { padding: 0 16px; }
+    .main { padding: 24px 16px 40px; }
+    .page-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ========= 无障碍兜底 ========= */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

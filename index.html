@@ -6,85 +6,13 @@
     <title>青翔未阔工作室</title>
     <meta name="description" content="青翔未阔工作室官方门户，提供资源下载、画廊、项目展示、团队介绍等一站式服务，并展示每日精选壁纸与一言语录。">
     <link rel="icon" type="image/webp" href="/favicon.webp">
+    <link rel="stylesheet" href="/style.css">
     <style>
-        /* ========= Reset & Base ========= */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --primary-light: #eff6ff;
-            --secondary: #0d9488;
-            --surface: #ffffff;
-            --bg: #f8fafc;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --text-tertiary: #94a3b8;
-            --border: #e2e8f0;
-            --navbar-bg: rgba(255, 255, 255, 0.8);
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            --container: 1100px;
-            --nav-height: 64px;
-        }
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: var(--nav-height);
-        }
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* ========= Navbar ========= */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-height);
-            z-index: 1000;
-            background: var(--navbar-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            transition: background var(--transition), box-shadow var(--transition);
-        }
-        .navbar-inner {
-            max-width: var(--container);
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-        }
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-            transition: opacity var(--transition);
-        }
-        .navbar-brand:hover { opacity: 0.85; }
+        /* Reset & Base（html / body）、.navbar、.navbar-brand、.main、.footer、.page-header
+           等跨页一致的规则已统一到 /style.css，本页不再重复定义。
+           首页导航已由 position:fixed 改为 /style.css 里的 sticky，原先为 fixed 布局预留的
+           顶部补偿在本页并不存在（无 padding-top: var(--nav-height) 之类声明），因此无需去除。 */
+        /* 品牌图标自身的 flex-shrink 微调保留在本页（首页导航含图标，非跨页共性规则）。 */
         .navbar-brand svg { flex-shrink: 0; }
 
         /* ========= Hamburger ========= */
@@ -157,7 +85,10 @@
         /* ========= Hero ========= */
         .hero {
             width: 100%;
-            height: 100vh;
+            /* 减去导航高度：导航已统一为 sticky（见 style.css），它自己占 64px 流内高度，
+               若这里仍旧写 100vh，首屏会整体下移一个导航高度、整页也跟着变长。
+               减掉之后首屏仍是「正好一屏」。 */
+            height: calc(100vh - var(--nav-height));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -499,14 +430,7 @@
         }
 
         /* ========= Footer ========= */
-        .footer {
-            background: #0f172a;
-            text-align: center;
-            padding: 40px 24px 32px;
-            color: var(--text-tertiary);
-            font-size: 0.84rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
+        /* .footer 已统一到 /style.css（padding:28px 24px / 0.82rem），本页只保留计数器样式。 */
         .footer-counter {
             margin-bottom: 12px;
         }
@@ -515,9 +439,6 @@
             height: auto;
             border-radius: 6px;
             filter: brightness(0.85);
-        }
-        .footer-copy {
-            opacity: 0.6;
         }
 
         /* ========= Modals ========= */
@@ -657,7 +578,6 @@
             :root { --container: 100%; }
             .section, .photo-stack-section { padding: 32px 18px; }
             .section-header { margin-bottom: 32px; }
-            .navbar-inner { padding: 0 16px; }
             .hero-overlay { padding: 28px 20px; }
             .hero-overlay h1 { letter-spacing: 1px; }
             .hero-divider { margin-bottom: 20px; }
@@ -698,10 +618,6 @@
             .navbar-brand svg { width: 26px; height: 26px; }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
             .reveal { opacity: 1; transform: none; }
         }
     </style>
@@ -729,27 +645,6 @@
     })();
     </script>
     <style>
-        /* ===== 黑夜模式：主题切换按钮 ===== */
-        .theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; background:none; border:none; border-radius:50%; color:var(--text-primary); cursor:pointer; transition:background var(--transition), color var(--transition); }
-        .theme-toggle:hover { background:var(--primary-subtle); color:var(--primary); }
-        .theme-toggle svg { width:22px; height:22px; }
-        .theme-toggle .icon-sun { display:none; }
-        :root[data-theme="dark"] .theme-toggle .icon-sun { display:block; }
-        :root[data-theme="dark"] .theme-toggle .icon-moon { display:none; }
-
-        /* ===== 黑夜模式：深色变量 ===== */
-        :root { color-scheme: light; --primary-light:#eff6ff; --primary-subtle:rgba(37,99,235,0.08); }
-        :root[data-theme="dark"] {
-            color-scheme: dark;
-            --primary-light: rgba(59,130,246,0.16);
-            --primary-subtle: rgba(59,130,246,0.16);
-            --surface:#1e293b; --bg:#0f172a;
-            --text-primary:#e2e8f0; --text-secondary:#94a3b8; --text-tertiary:#64748b;
-            --border:#334155; --navbar-bg:rgba(15,23,42,0.8);
-            --shadow-sm:0 1px 3px rgba(0,0,0,0.4); --shadow-md:0 4px 16px rgba(0,0,0,0.5); --shadow-lg:0 12px 40px rgba(0,0,0,0.6);
-        }
-        :root[data-theme="dark"] .footer { background:#111827; }
-
         /* ===== 黑夜模式：页面元素覆盖 ===== */
         :root[data-theme="dark"] body { background: var(--bg); }
         :root[data-theme="dark"] .hero-bg { filter: brightness(0.55); }
