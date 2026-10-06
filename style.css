@@ -86,6 +86,14 @@ body {
     font-weight: 600; font-size: 1.15rem; letter-spacing: 0.3px; transition: opacity var(--transition);
 }
 .navbar-brand:hover { opacity: 0.85; }
+/* 品牌图标与文字对齐 Qxwk 通行证（account）：圆形 logo + 蓝色外发光、加粗品牌名。
+   网站顶栏品牌不带副标题，故不引入 account 的 .brand-text span（口号）那一行。 */
+.brand-logo {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    object-fit: cover; box-shadow: 0 2px 10px rgba(37,99,235,0.25);
+}
+.brand-text { line-height: 1.25; }
+.brand-text b { display: block; font-size: 16px; font-weight: 600; letter-spacing: 0.3px; }
 .back-link {
     display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px;
     background: rgba(37,99,235,0.15); color: var(--text-primary); text-decoration: none;
@@ -112,10 +120,10 @@ body {
 }
 
 /* ========= Footer =========
-   统一到多数派：padding:28px 24px / font-size:0.82rem。
-   首页原为 padding:40px 24px 32px + font-size:0.84rem，已向内页看齐。 */
+   对齐 Qxwk 通行证（account）：padding:14px 24px / font-size:0.82rem。
+   首页底栏另含访客计数器（.footer-counter，见首页内联样式）。 */
 .footer {
-    background: #0f172a; text-align: center; padding: 28px 24px;
+    background: #0f172a; text-align: center; padding: 14px 24px;
     color: var(--text-tertiary); font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.06);
 }
 .footer-copy { opacity: 0.6; }

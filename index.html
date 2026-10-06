@@ -12,8 +12,6 @@
            等跨页一致的规则已统一到 /style.css，本页不再重复定义。
            首页导航已由 position:fixed 改为 /style.css 里的 sticky，原先为 fixed 布局预留的
            顶部补偿在本页并不存在（无 padding-top: var(--nav-height) 之类声明），因此无需去除。 */
-        /* 品牌图标自身的 flex-shrink 微调保留在本页（首页导航含图标，非跨页共性规则）。 */
-        .navbar-brand svg { flex-shrink: 0; }
 
         /* ========= Hamburger ========= */
         .hamburger-wrap {
@@ -614,8 +612,8 @@
             .hero-overlay { padding: 20px 14px; width: 94%; }
             .saying-box { padding: 14px 12px; }
             .scroll-indicator { bottom: 24px; }
-            .navbar-brand { font-size: 1.05rem; }
-            .navbar-brand svg { width: 26px; height: 26px; }
+            .brand-logo { width: 30px; height: 30px; }
+            .brand-text b { font-size: 15px; }
         }
         @media (prefers-reduced-motion: reduce) {
             .reveal { opacity: 1; transform: none; }
@@ -669,8 +667,8 @@
     <header class="navbar" id="navbar">
         <div class="navbar-inner">
             <a href="#" class="navbar-brand" id="homeTopLink">
-                <img src="/favicon.webp" alt="青翔未阔工作室" width="30" height="30" style="border-radius:6px; flex-shrink:0;">
-                <span>青翔未阔工作室</span>
+                <img class="brand-logo" src="/favicon.webp" alt="青翔未阔工作室">
+                <span class="brand-text"><b>青翔未阔工作室</b></span>
             </a>
             <div style="display:flex;align-items:center;gap:24px;">
             <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">
