@@ -564,6 +564,13 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* 入场之后要让卡片的悬停浮起重新生效：.reveal.visible 的 transform 与 .card:hover
+           同权重、又写在后面，会把 hover 的 translateY 盖掉（.link-card 没有 .reveal，
+           所以一直正常）。这里提高权重把浮起还给卡片，并沿用卡片原本的弹性曲线。 */
+        .card.reveal.visible:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
