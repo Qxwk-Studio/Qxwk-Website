@@ -210,7 +210,10 @@
                 domain: 'travel.qxwkstudio.top',
                 title: 'City Footprint',
                 desc: '记录每个人去过的城市，在足迹地图上点亮属于自己的颜色。登录通行证后把自己去过的城市打点在地图上，和朋友们一起拼出一张五彩斑斓的足迹大地图。',
-                tech: 'Cloudflare Workers + D1'
+                tech: 'GitHub Pages + Cloudflare Workers + D1',
+                children: [
+                    { name: 'api', desc: '足迹数据接口' }
+                ]
             },
             {
                 domain: 'blog.qxwkstudio.top',
@@ -234,7 +237,10 @@
                 domain: 'class.qxwkstudio.top',
                 title: 'Class Assistant —— 班级助理',
                 desc: '面向「班长」角色的 AI 助理系统：把转发通知、活动提醒、同学答疑、材料催收等机械化的班级事务，交给运行在本地服务器上的 AI Agent 自动完成。',
-                tech: 'Cloudflare Pages + D1'
+                tech: 'Cloudflare Pages + D1',
+                children: [
+                    { name: 'send', desc: '邮件与推送发送服务（Resend）' }
+                ]
             }
         ];
 
